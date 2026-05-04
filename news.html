@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nyxarion - News</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0b0f1a;
+    color:white;
+}
+
+nav{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    padding:15px;
+    background:rgba(0,0,0,0.6);
+}
+
+nav button{
+    padding:8px 12px;
+    border:none;
+    background:#1f2937;
+    color:white;
+}
+
+h1{
+    text-align:center;
+    color:#00f0ff;
+    margin-top:20px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:15px;
+    margin:15px 0;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:scale(1.02);
+}
+
+button.open{
+    margin-top:10px;
+    padding:8px 12px;
+    border:none;
+    background:#a855f7;
+    color:white;
+    cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<nav>
+<button onclick="location.href='home.html'">Home</button>
+<button onclick="location.href='games.html'">Games</button>
+<button onclick="location.href='news.html'">News</button>
+<button onclick="location.href='profile.html'">Profile</button>
+</nav>
+
+<h1>Gaming News Hub</h1>
+
+<div class="container">
+
+<div class="card">
+<h2>PUBG Mobile News</h2>
+<p>Latest updates, tournaments, esports events, new seasons, and weapon balance changes.</p>
+<button class="open" onclick="location.href='pubg-news.html'">Open PUBG News</button>
+</div>
+
+<div class="card">
+<h2>GTA V / GTA VI News</h2>
+<p>Rockstar updates, GTA VI rumors, release discussions, and online mode changes.</p>
+<button class="open" onclick="location.href='gta-news.html'">Open GTA News</button>
+</div>
+
+<div class="card">
+<h2>Wuthering Waves News</h2>
+<p>New characters, patches, events, and story expansions in Solaris-3 world.</p>
+<button class="open" onclick="location.href='wuthering-news.html'">Open Wuthering Waves News</button>
+</div>
+
+</div>
+
+</body>
+</html>
