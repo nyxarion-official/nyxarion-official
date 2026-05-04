@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Nyxarion - News</title>
+<title>Nyxarion News</title>
 
 <style>
 body{
     margin:0;
     font-family:Arial;
-    background:#0b0f1a;
+    background:#05060a;
     color:white;
+    opacity:0;
+    animation:fadeIn 0.8s forwards;
 }
 
+/* FADE IN */
+@keyframes fadeIn{
+    to{opacity:1;}
+}
+
+/* NAV */
 nav{
     display:flex;
     justify-content:center;
@@ -19,44 +27,49 @@ nav{
     background:rgba(0,0,0,0.6);
 }
 
-nav button{
-    padding:8px 12px;
-    border:none;
-    background:#1f2937;
-    color:white;
-}
-
+/* TITLE */
 h1{
     text-align:center;
     color:#00f0ff;
     margin-top:20px;
 }
 
+/* CONTAINER */
 .container{
     max-width:1000px;
     margin:auto;
     padding:20px;
 }
 
+/* NEWS CARDS */
 .card{
     background:rgba(255,255,255,0.05);
     padding:15px;
     margin:15px 0;
     border-radius:12px;
-    transition:0.3s;
+
+    transform:translateY(20px);
+    opacity:0;
+    animation:slideUp 0.6s forwards;
 }
 
-.card:hover{
-    transform:scale(1.02);
+/* stagger effect */
+.card:nth-child(1){animation-delay:0.2s;}
+.card:nth-child(2){animation-delay:0.4s;}
+.card:nth-child(3){animation-delay:0.6s;}
+
+@keyframes slideUp{
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
 }
 
-button.open{
-    margin-top:10px;
+button{
     padding:8px 12px;
     border:none;
-    background:#a855f7;
+    background:#1f2937;
     color:white;
-    cursor:pointer;
 }
 </style>
 
@@ -71,26 +84,23 @@ button.open{
 <button onclick="location.href='profile.html'">Profile</button>
 </nav>
 
-<h1>Gaming News Hub</h1>
+<h1>GAMING NEWS</h1>
 
 <div class="container">
 
 <div class="card">
-<h2>PUBG Mobile News</h2>
-<p>Latest updates, tournaments, esports events, new seasons, and weapon balance changes.</p>
-<button class="open" onclick="location.href='pubg-news.html'">Open PUBG News</button>
+<h2>PUBG Mobile Update</h2>
+New season introduces improved matchmaking and weapon balancing changes.
 </div>
 
 <div class="card">
-<h2>GTA V / GTA VI News</h2>
-<p>Rockstar updates, GTA VI rumors, release discussions, and online mode changes.</p>
-<button class="open" onclick="location.href='gta-news.html'">Open GTA News</button>
+<h2>GTA VI Development</h2>
+Rockstar continues development with expected next-gen open world features.
 </div>
 
 <div class="card">
-<h2>Wuthering Waves News</h2>
-<p>New characters, patches, events, and story expansions in Solaris-3 world.</p>
-<button class="open" onclick="location.href='wuthering-news.html'">Open Wuthering Waves News</button>
+<h2>Wuthering Waves Update</h2>
+New characters and combat improvements added in latest patch.
 </div>
 
 </div>
