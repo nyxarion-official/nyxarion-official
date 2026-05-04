@@ -7,88 +7,161 @@
 body{
     margin:0;
     font-family:Arial;
+    background:#05060a;
     color:white;
-    overflow:hidden;
+    overflow-x:hidden;
 }
 
-/* CYBER BACKGROUND */
-.bg{
-    position:absolute;
-    width:200%;
-    height:200%;
-    background:
-    linear-gradient(transparent 95%, rgba(0,255,255,0.15) 100%),
-    linear-gradient(90deg, transparent 95%, rgba(0,255,255,0.15) 100%);
-    background-size:60px 60px;
-    animation:move 7s linear infinite;
-    opacity:0.35;
+/* NAV */
+nav{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    padding:15px;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(10px);
 }
 
-@keyframes move{
-    from{transform:translate(0,0);}
-    to{transform:translate(-60px,-60px);}
+nav button{
+    padding:10px 14px;
+    border:none;
+    background:#1f2937;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-/* PROFILE BOX */
-.box{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
-
-    background:rgba(0,0,0,0.7);
-    padding:40px;
-    border-radius:18px;
-
-    box-shadow:0 0 25px rgba(0,255,255,0.4);
-
-    animation:pop 0.8s ease;
+nav button:hover{
+    background:#a855f7;
+    transform:scale(1.05);
 }
 
-@keyframes pop{
-    from{transform:translate(-50%,-50%) scale(0.8);opacity:0;}
-    to{transform:translate(-50%,-50%) scale(1);opacity:1;}
-}
-
-/* TEXT IMPROVEMENTS */
+/* TITLE */
 h1{
+    text-align:center;
     color:#00f0ff;
-    font-size:38px;
+    font-size:42px;
+    margin-top:20px;
     text-shadow:0 0 15px #00f0ff;
 }
 
-p{
-    font-size:20px;
-    line-height:1.8;
+/* SLIDES */
+.slide{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    padding:40px;
+    text-align:center;
+
+    opacity:0;
+    transform:translateY(40px);
+    animation:slideIn 0.8s forwards;
+}
+
+.slide:nth-child(1){animation-delay:0.2s;}
+.slide:nth-child(2){animation-delay:0.4s;}
+.slide:nth-child(3){animation-delay:0.6s;}
+.slide:nth-child(4){animation-delay:0.8s;}
+
+@keyframes slideIn{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* CARDS */
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+    border-radius:15px;
+    max-width:700px;
+    box-shadow:0 0 20px rgba(0,240,255,0.1);
 }
 
 .highlight{
     color:#a855f7;
     font-weight:bold;
 }
+
+/* SOUND */
+audio{display:none;}
 </style>
 
 </head>
 
 <body>
 
-<div class="bg"></div>
+<!-- SOUND -->
+<audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6b5b0c8.mp3?filename=menu-click-110078.mp3"></audio>
+<audio id="hoverSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3b1c8c8f2d.mp3?filename=hover-112937.mp3"></audio>
 
-<div class="box">
+<script>
+function clickFx(){
+    document.getElementById("clickSound").play();
+}
+function hoverFx(){
+    document.getElementById("hoverSound").play();
+}
+</script>
 
-<h1>PLAYER PROFILE</h1>
+<!-- NAV -->
+<nav>
+<button onmouseover="hoverFx()" onclick="clickFx(); location.href='home.html'">Home</button>
+<button onmouseover="hoverFx()" onclick="clickFx(); location.href='games.html'">Games</button>
+<button onmouseover="hoverFx()" onclick="clickFx(); location.href='news.html'">News</button>
+<button onmouseover="hoverFx()" onclick="clickFx(); location.href='profile.html'">Profile</button>
+</nav>
 
-<p><span class="highlight">Name:</span> M. Faakhir Zaki</p>
-<p><span class="highlight">Email:</span> faakhir.zaki2@gmail.com</p>
+<h1>TEAM PROFILE</h1>
 
-<hr style="opacity:0.3;">
+<!-- SLIDE 1 -->
+<div class="slide">
+<div class="card">
+<h2>👑 Founder</h2>
+<p><span class="highlight">Faakhir Zaki</span> — Founder of Nyxarion</p>
+<p>Vision creator of the platform, passionate gamer and system designer.</p>
+</div>
+</div>
 
-<p><span class="highlight">Collaborators:</span></p>
-<p style="font-size:22px;">
-Muneeb • Fozvee • Nomi
-</p>
+<!-- SLIDE 2 -->
+<div class="slide">
+<div class="card">
+<h2>🤝 Partners</h2>
+<p>Muneeb • Fozvee • Nomi</p>
+<p>Core collaborators helping build Nyxarion gaming universe.</p>
+</div>
+</div>
 
+<!-- SLIDE 3 -->
+<div class="slide">
+<div class="card">
+<h2>🌍 Locations</h2>
+<p><b>Faakhir & Fozvee:</b> Pakistan</p>
+<p><b>Muneeb & Nomi:</b> Bahrain</p>
+<p>All members are Pakistani by birth.</p>
+</div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide">
+<div class="card">
+<h2>🎮 Gaming Identity</h2>
+<p>All members are active gamers playing daily.</p>
+<p>We focus on competitive and casual gaming across FPS and open-world titles.</p>
+<p>Team is highly active, enthusiastic, and growth-oriented.</p>
+</div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide">
+<div class="card">
+<h2>⚡ Team Personality</h2>
+<p>Highly motivated, creative, and gaming-focused group.</p>
+<p>We enjoy collaboration, strategy games, and building digital projects together.</p>
+</div>
 </div>
 
 </body>
