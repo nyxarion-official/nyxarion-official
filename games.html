@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nyxarion - Games</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0f1a;
+    color: white;
+}
+
+/* NAV */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+}
+
+nav button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: #1f2937;
+    color: white;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background: #a855f7;
+}
+
+/* TOP GAME BUTTONS */
+.top-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px;
+}
+
+.top-buttons button {
+    padding: 10px 15px;
+    border: 1px solid #a855f7;
+    background: transparent;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.top-buttons button:hover {
+    background: #a855f7;
+}
+
+/* CARD */
+.card {
+    max-width: 900px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.content {
+    padding: 20px;
+}
+
+h2 {
+    color: #00f0ff;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+    <button onclick="location.href='home.html'">Home</button>
+    <button onclick="location.href='games.html'">Games</button>
+    <button onclick="location.href='news.html'">News</button>
+    <button onclick="location.href='profile.html'">Profile</button>
+</nav>
+
+<!-- GAME QUICK BUTTONS -->
+<div class="top-buttons">
+    <button onclick="location.href='pubg.html'">PUBG Mobile</button>
+    <button onclick="location.href='wuthering.html'">Wuthering Waves</button>
+    <button onclick="location.href='gta.html'">GTA V</button>
+    <button onclick="location.href='rdr2.html'">RDR2</button>
+</div>
+
+<!-- PUBG -->
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
+    <div class="content">
+        <h2>PUBG Mobile</h2>
+        <p>
+            PUBG Mobile is a competitive battle royale game where 100 players drop onto an island and fight to survive. 
+            It focuses on strategy, weapon control, positioning, and teamwork. The game is widely popular in esports and ranked competitive play.
+        </p>
+        <button onclick="location.href='pubg.html'">Open PUBG Page</button>
+    </div>
+</div>
+
+<!-- WUTHERING WAVES -->
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d1">
+    <div class="content">
+        <h2>Wuthering Waves</h2>
+        <p>
+            A futuristic open-world action RPG set in Solaris-3. It features fast-paced combat, exploration, 
+            character switching mechanics, and a deep storyline focused on memory, identity, and survival.
+        </p>
+        <button onclick="location.href='wuthering.html'">Open Wuthering Waves Page</button>
+    </div>
+</div>
+
+<!-- GTA V -->
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1533236897111-3e94666b2edf">
+    <div class="content">
+        <h2>GTA V</h2>
+        <p>
+            GTA V is an open-world crime action game set in Los Santos. It features missions, driving, 
+            character switching, and a massive online multiplayer mode with endless gameplay freedom.
+        </p>
+        <button onclick="location.href='gta.html'">Open GTA V Page</button>
+    </div>
+</div>
+
+<!-- RDR2 -->
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+    <div class="content">
+        <h2>Red Dead Redemption 2</h2>
+        <p>
+            RDR2 is a story-driven western adventure featuring realistic world systems, survival mechanics, 
+            and deep emotional storytelling set in the American frontier.
+        </p>
+        <button onclick="location.href='rdr2.html'">Open RDR2 Page</button>
+    </div>
+</div>
+
+</body>
+</html>
