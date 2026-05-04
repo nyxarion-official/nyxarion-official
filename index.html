@@ -6,246 +6,147 @@
 <title>Nyxarion</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
-
 body {
-    background: #0a0a0f;
+    margin: 0;
+    font-family: Arial;
+    background: #05060a;
     color: white;
     overflow-x: hidden;
 }
 
-/* NAVBAR */
-nav {
+/* CYBERPUNK BACKGROUND */
+.background {
     position: fixed;
     width: 100%;
-    padding: 15px 40px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: space-between;
-    z-index: 1000;
+    height: 100%;
+    background: linear-gradient(120deg, #0a0a0f, #0d001a, #000);
+    z-index: -3;
 }
 
-nav h1 {
-    color: #a855f7;
-    letter-spacing: 2px;
+.grid {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: moveGrid 20s linear infinite;
+    z-index: -2;
 }
 
-nav ul {
-    display: flex;
-    gap: 20px;
-    list-style: none;
+@keyframes moveGrid {
+    from { transform: translate(0,0); }
+    to { transform: translate(-50px,-50px); }
 }
 
-nav ul li {
-    cursor: pointer;
-    transition: 0.3s;
+/* GLOW ORBS */
+.orb {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: float 6s infinite ease-in-out;
 }
 
-nav ul li:hover {
-    color: #a855f7;
+.orb1 { background: #a855f7; top: 10%; left: 10%; }
+.orb2 { background: #00f0ff; top: 50%; right: 10%; }
+.orb3 { background: #ff0055; bottom: 10%; left: 40%; }
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-40px); }
 }
 
-/* HERO */
-.hero {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* HEADER */
+header {
     text-align: center;
-    background: radial-gradient(circle, #111 20%, #000);
+    padding: 80px 20px 30px;
 }
 
-.hero h2 {
+header h1 {
     font-size: 60px;
     color: #a855f7;
+    text-shadow: 0 0 20px #a855f7;
 }
 
-.hero p {
+header p {
     opacity: 0.7;
 }
 
-/* SECTIONS */
-section {
-    padding: 80px 40px;
+/* GAME GRID */
+.section {
+    padding: 40px;
 }
 
-.section-title {
-    font-size: 30px;
+.title {
+    font-size: 28px;
+    color: #00f0ff;
     margin-bottom: 20px;
-    color: #a855f7;
 }
 
-/* CARDS */
-.grid {
+.grid-box {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 15px;
 }
 
 .card {
     background: rgba(255,255,255,0.05);
     padding: 20px;
     border-radius: 15px;
-    transition: 0.3s;
     backdrop-filter: blur(10px);
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 20px #a855f7;
-}
-
-/* PROFILE */
-.profile {
+    transition: 0.3s;
     text-align: center;
 }
 
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.stat {
-    background: rgba(255,255,255,0.05);
-    padding: 15px;
-    border-radius: 10px;
-}
-
-/* CONTACT */
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background: #111;
-    border: none;
-    color: white;
-}
-
-button {
-    padding: 10px 20px;
-    background: #a855f7;
-    border: none;
-    cursor: pointer;
-}
-
-/* MUSIC BUTTON */
-.music-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #a855f7;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #a855f7;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
+<div class="background"></div>
+<div class="grid"></div>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<header>
     <h1>Nyxarion</h1>
-    <ul>
-        <li onclick="scrollToSection('home')">Home</li>
-        <li onclick="scrollToSection('games')">Games</li>
-        <li onclick="scrollToSection('content')">Content</li>
-        <li onclick="scrollToSection('profile')">Profile</li>
-        <li onclick="scrollToSection('contact')">Contact</li>
-    </ul>
-</nav>
+    <p>Cyberpunk Gaming Universe</p>
+</header>
 
-<div class="hero" id="home">
-    <div>
-        <h2>Nyxarion</h2>
-        <p>Enter the Dark Play</p>
-    </div>
-</div>
-
-<section id="games">
-    <h2 class="section-title">Top Games</h2>
-    <div class="grid">
+<div class="section">
+    <div class="title">Mobile Games</div>
+    <div class="grid-box">
         <div class="card">PUBG Mobile</div>
         <div class="card">Wuthering Waves</div>
         <div class="card">Clash of Clans</div>
-        <div class="card">Valorant Mobile</div>
     </div>
+</div>
 
-    <h2 class="section-title">Other Mobile Games</h2>
-    <div class="grid">
-        <div class="card">Clash Royale</div>
-        <div class="card">Honor of Kings</div>
-        <div class="card">Mobile Legends</div>
-    </div>
-
-    <h2 class="section-title">PC Games</h2>
-    <div class="grid">
+<div class="section">
+    <div class="title">PC Games</div>
+    <div class="grid-box">
         <div class="card">GTA V</div>
-        <div class="card">GTA VI</div>
         <div class="card">RDR2</div>
-        <div class="card">Cyberpunk 2077</div>
         <div class="card">Hogwarts Legacy</div>
-        <div class="card">Marvel Rivals</div>
-        <div class="card">Valorant</div>
     </div>
-</section>
-
-<section id="content">
-    <h2 class="section-title">Content / Posts</h2>
-    <div class="grid">
-        <div class="card">Coming Soon...</div>
-        <div class="card">Your future posts here</div>
-    </div>
-</section>
-
-<section id="profile">
-    <h2 class="section-title">Profile</h2>
-    <div class="profile">
-        <p>🎮 Gamer | 🎓 Student</p>
-        <div class="stats">
-            <div class="stat">Rank: Elite</div>
-            <div class="stat">Wins: 120</div>
-            <div class="stat">K/D: 3.5</div>
-        </div>
-    </div>
-</section>
-
-<section id="contact">
-    <h2 class="section-title">Contact</h2>
-    <input placeholder="Your Name">
-    <input placeholder="Email">
-    <textarea placeholder="Message"></textarea>
-    <button>Send</button>
-</section>
-
-<!-- MUSIC -->
-<audio id="bg-music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<div class="music-btn" onclick="toggleMusic()">🎵</div>
+</div>
 
 <script>
-function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
-}
-
-let music = document.getElementById("bg-music");
-
-function toggleMusic() {
-    if (music.paused) {
-        music.play();
-    } else {
-        music.pause();
-    }
-}
+// subtle floating animation enhancer
+document.addEventListener("mousemove", (e) => {
+    document.querySelectorAll(".orb").forEach(orb => {
+        orb.style.transform = `translate(${e.clientX*0.01}px, ${e.clientY*0.01}px)`;
+    });
+});
 </script>
 
 </body>
