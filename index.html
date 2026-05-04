@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nyxarion</title>
+<title>Nyxarion - Entry</title>
 
 <style>
 body {
     margin: 0;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     background: #05060a;
     color: white;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
-/* CYBERPUNK BACKGROUND */
-.background {
+/* BACKGROUND */
+.bg {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: linear-gradient(120deg, #0a0a0f, #0d001a, #000);
+    background: radial-gradient(circle at center, #12002b, #000);
     z-index: -3;
 }
 
@@ -30,124 +30,95 @@ body {
     background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
                       linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 50px 50px;
-    animation: moveGrid 20s linear infinite;
+    animation: move 18s linear infinite;
     z-index: -2;
 }
 
-@keyframes moveGrid {
+@keyframes move {
     from { transform: translate(0,0); }
     to { transform: translate(-50px,-50px); }
 }
 
-/* GLOW ORBS */
-.orb {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
-    animation: float 6s infinite ease-in-out;
-}
-
-.orb1 { background: #a855f7; top: 10%; left: 10%; }
-.orb2 { background: #00f0ff; top: 50%; right: 10%; }
-.orb3 { background: #ff0055; bottom: 10%; left: 40%; }
-
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-40px); }
-}
-
-/* HEADER */
-header {
-    text-align: center;
-    padding: 80px 20px 30px;
-}
-
-header h1 {
-    font-size: 60px;
-    color: #a855f7;
-    text-shadow: 0 0 20px #a855f7;
-}
-
-header p {
-    opacity: 0.7;
-}
-
-/* GAME GRID */
-.section {
-    padding: 40px;
-}
-
+/* TITLE */
 .title {
-    font-size: 28px;
-    color: #00f0ff;
-    margin-bottom: 20px;
-}
-
-.grid-box {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-    gap: 15px;
-}
-
-.card {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    transition: 0.3s;
     text-align: center;
+    margin-top: 120px;
+    font-size: 72px;
+    color: #a855f7;
+    text-shadow: 0 0 25px #a855f7;
+    letter-spacing: 3px;
 }
 
-.card:hover {
+/* SUBTITLE */
+.subtitle {
+    text-align: center;
+    opacity: 0.7;
+    margin-top: 10px;
+}
+
+/* CHARACTERS */
+.characters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+}
+
+.char {
+    width: 140px;
+    padding: 15px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    transition: 0.3s;
+}
+
+.char:hover {
     transform: scale(1.05);
     box-shadow: 0 0 20px #a855f7;
+}
+
+/* BUTTON */
+button {
+    display: block;
+    margin: 70px auto;
+    padding: 12px 28px;
+    background: transparent;
+    border: 1px solid #a855f7;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #a855f7;
+    box-shadow: 0 0 25px #a855f7;
 }
 </style>
 </head>
 
 <body>
 
-<div class="background"></div>
+<div class="bg"></div>
 <div class="grid"></div>
 
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-<div class="orb orb3"></div>
+<div class="title">NYXARION</div>
+<div class="subtitle">A Cyber Gaming Universe</div>
 
-<header>
-    <h1>Nyxarion</h1>
-    <p>Cyberpunk Gaming Universe</p>
-</header>
-
-<div class="section">
-    <div class="title">Mobile Games</div>
-    <div class="grid-box">
-        <div class="card">PUBG Mobile</div>
-        <div class="card">Wuthering Waves</div>
-        <div class="card">Clash of Clans</div>
-    </div>
+<div class="characters">
+    <div class="char">Shadow Veyron</div>
+    <div class="char">Aether Warden</div>
+    <div class="char">Iron Drifter</div>
+    <div class="char">Rift Commander</div>
 </div>
 
-<div class="section">
-    <div class="title">PC Games</div>
-    <div class="grid-box">
-        <div class="card">GTA V</div>
-        <div class="card">RDR2</div>
-        <div class="card">Hogwarts Legacy</div>
-    </div>
-</div>
-
-<script>
-// subtle floating animation enhancer
-document.addEventListener("mousemove", (e) => {
-    document.querySelectorAll(".orb").forEach(orb => {
-        orb.style.transform = `translate(${e.clientX*0.01}px, ${e.clientY*0.01}px)`;
-    });
-});
-</script>
+<button onclick="location.href='home.html'">
+Enter Nyxarion World
+</button>
 
 </body>
 </html>
