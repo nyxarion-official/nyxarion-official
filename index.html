@@ -1,124 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nyxarion - Entry</title>
+<title>Nyxarion Entry</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #05060a;
-    color: white;
-    overflow: hidden;
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial;
+    background:black;
 }
 
 /* BACKGROUND */
-.bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, #12002b, #000);
-    z-index: -3;
+.bg{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:url('https://images.unsplash.com/photo-1520975916090-3105956dac38') center/cover no-repeat;
+    filter:brightness(0.4);
 }
 
-.grid {
-    position: fixed;
-    width: 200%;
-    height: 200%;
-    background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: move 18s linear infinite;
-    z-index: -2;
-}
-
-@keyframes move {
-    from { transform: translate(0,0); }
-    to { transform: translate(-50px,-50px); }
+/* CENTER TEXT */
+.center{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    color:white;
 }
 
 /* TITLE */
-.title {
-    text-align: center;
-    margin-top: 120px;
-    font-size: 72px;
-    color: #a855f7;
-    text-shadow: 0 0 25px #a855f7;
-    letter-spacing: 3px;
+h1{
+    font-size:50px;
+    color:#a855f7;
+    text-shadow:0 0 20px #a855f7;
+    letter-spacing:3px;
 }
 
-/* SUBTITLE */
-.subtitle {
-    text-align: center;
-    opacity: 0.7;
-    margin-top: 10px;
+/* PRESS ENTER */
+.enter{
+    margin-top:20px;
+    font-size:18px;
+    opacity:0.8;
+    animation:blink 1.2s infinite;
+    cursor:pointer;
 }
 
-/* CHARACTERS */
-.characters {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 60px;
-    flex-wrap: wrap;
+@keyframes blink{
+    0%,100%{opacity:1;}
+    50%{opacity:0.2;}
 }
 
-.char {
-    width: 140px;
-    padding: 15px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 12px;
-    text-align: center;
-    backdrop-filter: blur(8px);
-    transition: 0.3s;
-}
-
-.char:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #a855f7;
-}
-
-/* BUTTON */
-button {
-    display: block;
-    margin: 70px auto;
-    padding: 12px 28px;
-    background: transparent;
-    border: 1px solid #a855f7;
-    color: white;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: 0.3s;
-    font-size: 16px;
-}
-
-button:hover {
-    background: #a855f7;
-    box-shadow: 0 0 25px #a855f7;
+/* GLOW LINE EFFECT */
+.line{
+    width:200px;
+    height:2px;
+    background:#00f0ff;
+    margin:20px auto;
+    box-shadow:0 0 15px #00f0ff;
 }
 </style>
+
 </head>
 
-<body>
+<body onclick="enter()">
 
 <div class="bg"></div>
-<div class="grid"></div>
 
-<div class="title">NYXARION</div>
-<div class="subtitle">A Cyber Gaming Universe</div>
-
-<div class="characters">
-    <div class="char">Shadow Veyron</div>
-    <div class="char">Aether Warden</div>
-    <div class="char">Iron Drifter</div>
-    <div class="char">Rift Commander</div>
+<div class="center">
+    <h1>NYXARION</h1>
+    <div class="line"></div>
+    <div class="enter">PRESS ANYWHERE TO ENTER</div>
 </div>
 
-<button onclick="location.href='home.html'">
-Enter Nyxarion World
-</button>
+<script>
+function enter(){
+    window.location.href="home.html";
+}
+</script>
 
 </body>
 </html>
