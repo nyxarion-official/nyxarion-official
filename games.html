@@ -1,162 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Nyxarion Games Library</title>
-
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NYXARION — Games</title>
+{shared_head}
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#05060a;
-    color:white;
-}
-
-/* AUDIO UI (hidden) */
-audio{display:none;}
-
-/* TOP BAR */
-nav{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    padding:15px;
-    background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(10px);
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-nav button{
-    padding:10px 14px;
-    border:none;
-    background:#1f2937;
-    color:white;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-nav button:hover{
-    background:#a855f7;
-    transform:scale(1.05);
-}
-
-/* TITLE */
-h1{
-    text-align:center;
-    color:#00f0ff;
-    font-size:42px;
-    margin-top:20px;
-    text-shadow:0 0 15px #00f0ff;
-}
-
-/* GRID */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    padding:30px;
-}
-
-/* GAME CARD */
-.game{
-    height:300px;
-    border-radius:15px;
-    overflow:hidden;
-    position:relative;
-    cursor:pointer;
-    transition:0.4s;
-
-    opacity:0;
-    transform:translateY(30px);
-    animation:slideIn 0.6s forwards;
-}
-
-.game:nth-child(1){animation-delay:0.2s;}
-.game:nth-child(2){animation-delay:0.4s;}
-.game:nth-child(3){animation-delay:0.6s;}
-
-@keyframes slideIn{
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.game:hover{
-    transform:scale(1.06);
-    box-shadow:0 0 25px rgba(0,240,255,0.4);
-}
-
-/* IMAGE */
-.game img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    filter:brightness(0.75);
-}
-
-/* LABEL */
-.label{
-    position:absolute;
-    bottom:12px;
-    left:12px;
-    font-size:18px;
-    font-weight:bold;
-    text-shadow:0 0 10px black;
-}
-
-/* SOUND SCRIPT */
+.page-hero{{padding:110px 8% 40px;position:relative;text-align:center;}}
+.page-hero::before{{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(123,47,255,0.1) 0%,transparent 70%);}}
+.page-hero h1{{font-family:'Orbitron',monospace;font-size:clamp(32px,6vw,64px);font-weight:900;position:relative;}}
+.page-hero h1 span{{background:linear-gradient(135deg,var(--purple2),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}}
+.filter-bar{{display:flex;gap:10px;padding:20px 8% 40px;flex-wrap:wrap;justify-content:center;}}
+.fb{{padding:8px 20px;background:var(--card);border:1px solid var(--border);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all 0.2s;}}
+.fb:hover,.fb.active{{background:rgba(123,47,255,0.15);border-color:var(--purple);color:var(--purple2);}}
+.games-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;padding:0 8% 80px;}}
+.gc{{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all 0.3s;}}
+.gc:hover{{border-color:var(--purple);transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,0.4),0 0 40px var(--glow);}}
+.gc-cover{{height:200px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;}}
+.gc-plat{{position:absolute;top:12px;right:12px;display:flex;gap:6px;}}
+.pt{{padding:3px 8px;background:rgba(4,2,15,0.8);border:1px solid var(--border);border-radius:3px;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}}
+.gc-info{{padding:20px;}}
+.gc-genre{{font-size:9px;letter-spacing:4px;color:var(--purple2);text-transform:uppercase;margin-bottom:8px;}}
+.gc-title{{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;margin-bottom:6px;}}
+.gc-desc{{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:16px;}}
+.gc-foot{{display:flex;align-items:center;justify-content:space-between;}}
+.gc-rating{{display:flex;align-items:center;gap:6px;font-size:13px;}}
+.sr{{color:#fbbf24;font-size:12px;}}
+.hidden{{display:none;}}
+@media(max-width:768px){{.games-grid{{padding:0 5% 60px;}}.filter-bar{{padding:20px 5% 30px;}}}}
 </style>
 </head>
-
 <body>
-
-<!-- SOUND FILES -->
-<audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6b5b0c8.mp3?filename=menu-click-110078.mp3"></audio>
-<audio id="hoverSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3b1c8c8f2d.mp3?filename=hover-112937.mp3"></audio>
-
+<div id="cur"></div><div id="cur2"></div>
+<div class="stars"></div>
+{nav('games')}
+<div class="page-hero">
+  <div class="section-tag">// Game Library</div>
+  <h1>All <span>Games</span></h1>
+</div>
+<div class="filter-bar">
+  <button class="fb active" onclick="filter('all',this)">All</button>
+  <button class="fb" onclick="filter('mobile',this)">Mobile</button>
+  <button class="fb" onclick="filter('pc',this)">PC</button>
+  <button class="fb" onclick="filter('console',this)">Console</button>
+  <button class="fb" onclick="filter('action',this)">Action</button>
+  <button class="fb" onclick="filter('rpg',this)">RPG</button>
+  <button class="fb" onclick="filter('openworld',this)">Open World</button>
+</div>
+<div class="games-grid" id="gg"></div>
+{footer()}
+{shared_js}
 <script>
-function clickFx(){
-    document.getElementById("clickSound").play();
-}
-
-function hoverFx(){
-    document.getElementById("hoverSound").play();
-}
+const games=[
+  {{t:'GTA VI',g:'Action / Open World',p:['PC','Console'],tags:['action','openworld','pc','console'],e:'🚗',r:4.9,d:'The most anticipated open-world crime saga returns to Vice City with the biggest map ever.',c:'rgba(239,68,68,0.25),rgba(251,191,36,0.15)'}},
+  {{t:'PUBG Mobile',g:'Battle Royale',p:['Mobile'],tags:['action','mobile'],e:'🔫',r:4.7,d:'100-player battle royale on mobile — squad up and be the last team standing.',c:'rgba(234,179,8,0.25),rgba(123,47,255,0.15)'}},
+  {{t:'Valorant Mobile',g:'Tactical FPS',p:['Mobile'],tags:['action','mobile'],e:'🎯',r:4.8,d:"Riot's tactical 5v5 FPS comes to mobile with full agent abilities and ranked play.",c:'rgba(239,68,68,0.3),rgba(30,58,255,0.15)'}},
+  {{t:'Wuthering Waves',g:'Action RPG',p:['Mobile','PC'],tags:['rpg','action','mobile','pc'],e:'🌊',r:4.8,d:'Stunning open-world action RPG with fluid combat, deep lore and breathtaking environments.',c:'rgba(6,182,212,0.25),rgba(123,47,255,0.15)'}},
+  {{t:'Honor of Kings World',g:'MOBA / RPG',p:['Mobile','PC','Console'],tags:['action','rpg','mobile','pc','console'],e:'⚔️',r:4.6,d:'The legendary MOBA expands into a full open-world RPG across all platforms.',c:'rgba(251,191,36,0.25),rgba(239,68,68,0.15)'}},
+  {{t:'Red Dead Redemption 2',g:'Open World / Western',p:['PC','Console'],tags:['openworld','rpg','pc','console'],e:'🤠',r:5.0,d:'The greatest open-world game ever made. A masterpiece of storytelling and immersion.',c:'rgba(180,83,9,0.3),rgba(120,53,15,0.2)'}},
+  {{t:'Hogwarts Legacy',g:'Action RPG',p:['PC','Console'],tags:['rpg','openworld','pc','console'],e:'⚡',r:4.7,d:'Explore Hogwarts in the 1800s, master spells, and uncover a hidden magical secret.',c:'rgba(123,47,255,0.3),rgba(251,191,36,0.15)'}},
+  {{t:'Hogwarts Legacy 2',g:'Action RPG',p:['PC','Console'],tags:['rpg','openworld','pc','console'],e:'🦅',r:4.9,d:'The sequel expands the wizarding world with new regions, creatures, and deeper magic systems.',c:'rgba(168,85,247,0.3),rgba(96,165,250,0.15)'}},
+  {{t:'Minecraft',g:'Sandbox / Survival',p:['PC','Mobile','Console'],tags:['action','mobile','pc','console'],e:'⛏️',r:4.8,d:'The infinite sandbox where creativity has no limits. Build, survive, explore forever.',c:'rgba(34,197,94,0.25),rgba(120,53,15,0.15)'}},
+  {{t:'Call of Duty Mobile',g:'FPS / Battle Royale',p:['Mobile'],tags:['action','mobile'],e:'💥',r:4.6,d:'Console-quality COD experience on mobile with BR, multiplayer and ranked modes.',c:'rgba(239,68,68,0.2),rgba(107,114,128,0.2)'}},
+  {{t:'Fortnite',g:'Battle Royale',p:['PC','Mobile','Console'],tags:['action','mobile','pc','console'],e:'🏗️',r:4.5,d:'The iconic battle royale with constant collaborations, building mechanics and live events.',c:'rgba(96,165,250,0.25),rgba(251,191,36,0.15)'}},
+  {{t:'Cyberpunk 2077',g:'Open World RPG',p:['PC','Console'],tags:['rpg','openworld','pc','console'],e:'🌆',r:4.8,d:'Night City awaits — a sprawling cyberpunk RPG redeemed and now fully realized.',c:'rgba(234,179,8,0.2),rgba(6,182,212,0.15)'}},
+];
+function render(tag){{
+  const list=tag==='all'?games:games.filter(g=>g.tags.includes(tag));
+  document.getElementById('gg').innerHTML=list.map(g=>`
+    <div class="gc">
+      <div class="gc-cover" style="background:linear-gradient(135deg,${{g.c}});">
+        <span style="position:relative;z-index:2;">${{g.e}}</span>
+        <div class="gc-plat">${{g.p.map(p=>`<span class="pt">${{p}}</span>`).join('')}}</div>
+      </div>
+      <div class="gc-info">
+        <div class="gc-genre">${{g.g}}</div>
+        <div class="gc-title">${{g.t}}</div>
+        <div class="gc-desc">${{g.d}}</div>
+        <div class="gc-foot">
+          <div class="gc-rating"><span class="sr">${{'★'.repeat(Math.floor(g.r))}}</span><span style="font-size:12px;color:var(--muted)">${{g.r}}</span></div>
+        </div>
+      </div>
+    </div>`).join('');
+}}
+render('all');
+function filter(tag,btn){{document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render(tag);}}
 </script>
-
-<!-- NAV -->
-<nav>
-<button onmouseover="hoverFx()" onclick="clickFx(); location.href='home.html'">Home</button>
-<button onmouseover="hoverFx()" onclick="clickFx(); location.href='games.html'">Games</button>
-<button onmouseover="hoverFx()" onclick="clickFx(); location.href='news.html'">News</button>
-<button onmouseover="hoverFx()" onclick="clickFx(); location.href='profile.html'">Profile</button>
-</nav>
-
-<h1>GAMES LIBRARY</h1>
-
-<div class="grid">
-
-<!-- PUBG -->
-<div class="game" onmouseover="hoverFx()" onclick="clickFx(); location.href='pubg.html'">
-<img src="https://upload.wikimedia.org/wikipedia/en/4/44/PUBG_Mobile_logo.jpg">
-<div class="label">🎯 PUBG MOBILE</div>
-</div>
-
-<!-- WUTHERING WAVES -->
-<div class="game" onmouseover="hoverFx()" onclick="clickFx(); location.href='wuthering.html'">
-<img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d1">
-<div class="label">⚡ WUTHERING WAVES</div>
-</div>
-
-<!-- GTA V -->
-<div class="game" onmouseover="hoverFx()" onclick="clickFx(); location.href='gta.html'">
-<img src="https://images.unsplash.com/photo-1533236897111-3e94666b2edf">
-<div class="label">🚗 GTA V</div>
-</div>
-
-</div>
-
-</body>
-</html>
+</body></html>
