@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NYXARION</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&family=Exo+2:ital,wght@0,200;0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04020f;--purple:#7b2fff;--purple2:#a855f7;--blue:#1e3aff;--blue2:#60a5fa;--glow:rgba(123,47,255,0.5);--text:#e8e0ff;--muted:#7a6ea0;--card:rgba(255,255,255,0.04);--border:rgba(123,47,255,0.25);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;animation:fadeIn 0.5s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+#cur{position:fixed;width:10px;height:10px;background:var(--purple2);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
+#cur2{position:fixed;width:30px;height:30px;border:1px solid rgba(168,85,247,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left 0.12s,top 0.12s;}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d) var(--del) ease-in-out infinite alternate;}
+@keyframes twinkle{0%{opacity:0.1;}100%{opacity:0.8;}}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(4,2,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Orbitron',monospace;font-size:22px;font-weight:900;background:linear-gradient(135deg,var(--purple),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px;text-decoration:none;}
+.nav-links{display:flex;gap:8px;}
+.nav-btn{color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:4px;text-decoration:none;transition:all 0.2s;position:relative;}
+.nav-btn:hover{color:var(--purple2);}
+.nav-btn.active{color:var(--purple2);}
+.nav-btn.active::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60%;height:2px;background:var(--purple);border-radius:2px;}
+.nav-mobile{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;}
+#mob-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(4,2,15,0.97);z-index:999;padding:16px 24px;border-bottom:1px solid var(--border);}
+#mob-menu a{display:block;padding:14px 0;color:var(--muted);text-decoration:none;font-family:'Rajdhani',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid var(--border);}
+#mob-menu a:last-child{border-bottom:none;}
+#mob-menu a:hover{color:var(--purple2);}
+footer{background:rgba(7,4,26,0.8);border-top:1px solid var(--border);padding:40px 8%;text-align:center;margin-top:40px;}
+.footer-logo{font-family:'Orbitron',monospace;font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--purple),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px;margin-bottom:12px;}
+.footer-text{font-size:12px;color:var(--muted);letter-spacing:2px;}
+.btn-primary{padding:14px 36px;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.3s;box-shadow:0 0 30px var(--glow);text-decoration:none;display:inline-block;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px var(--glow);}
+.btn-outline{padding:14px 36px;background:transparent;color:var(--purple2);border:1px solid var(--purple);font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.3s;text-decoration:none;display:inline-block;}
+.btn-outline:hover{background:rgba(123,47,255,0.1);transform:translateY(-2px);}
+.section{padding:80px 8%;}
+.section-tag{font-size:10px;letter-spacing:5px;color:var(--purple2);text-transform:uppercase;margin-bottom:12px;}
+.section-title{font-family:'Orbitron',monospace;font-size:clamp(24px,4vw,40px);font-weight:700;margin-bottom:16px;}
+.section-title span{color:var(--purple2);}
+.section-line{width:60px;height:2px;background:linear-gradient(90deg,var(--purple),transparent);margin-bottom:40px;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--purple);border-radius:2px;}
+@media(max-width:768px){nav{padding:0 20px;}.nav-links{display:none;}.nav-mobile{display:block;}.section{padding:60px 5%;}}
+</style>
+<style>
+body{display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;overflow:hidden;}
+.intro-bg{position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(123,47,255,0.15) 0%,transparent 70%);}
+.grid{position:fixed;inset:0;background-image:linear-gradient(rgba(123,47,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(123,47,255,0.06) 1px,transparent 1px);background-size:60px 60px;animation:gm 20s linear infinite;}
+@keyframes gm{to{background-position:60px 60px;}}
+canvas{position:fixed;inset:0;pointer-events:none;}
+.content{position:relative;z-index:2;}
+.tag{font-size:11px;letter-spacing:6px;color:var(--purple2);text-transform:uppercase;margin-bottom:24px;opacity:0;animation:up 0.8s 0.3s forwards;}
+.title{font-family:'Orbitron',monospace;font-size:clamp(60px,12vw,130px);font-weight:900;line-height:0.9;letter-spacing:8px;background:linear-gradient(135deg,#fff 0%,var(--purple2) 40%,var(--blue2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 60px rgba(123,47,255,0.4));opacity:0;animation:up 0.8s 0.5s forwards;}
+.sub{font-size:clamp(11px,2vw,15px);letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-top:20px;opacity:0;animation:up 0.8s 0.7s forwards;}
+.enter{margin-top:60px;padding:16px 60px;background:transparent;border:1px solid var(--purple);color:var(--purple2);font-family:'Orbitron',monospace;font-size:13px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;opacity:0;animation:up 0.8s 1s forwards;transition:all 0.3s;text-decoration:none;display:inline-block;}
+.enter::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--purple),var(--blue));opacity:0;transition:opacity 0.3s;}
+.enter:hover::before{opacity:1;}
+.enter:hover{color:#fff;box-shadow:0 0 40px var(--glow);}
+.enter span{position:relative;z-index:1;}
+@keyframes up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur2"></div>
+<div class="stars"></div>
+<div class="intro-bg"></div>
+<div class="grid"></div>
+<canvas id="c"></canvas>
+<div class="content">
+  <div class="tag">Welcome to the Arena</div>
+  <div class="title">NYXARION</div>
+  <div class="sub">Gaming · News · Culture · Community</div>
+  <a href="home.html" class="enter"><span>ENTER THE REALM</span></a>
+</div>
+
+<script>
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';cur2.style.left=e.clientX+'px';cur2.style.top=e.clientY+'px';});
+const s=document.querySelector('.stars');
+for(let i=0;i<100;i++){const el=document.createElement('div');el.className='star';const sz=Math.random()*2+0.4;el.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--del:${Math.random()*4}s;`;s.appendChild(el);}
+function toggleMob(){const m=document.getElementById('mob-menu');m.style.display=m.style.display==='none'?'block':'none';}
+</script>
+<script>
+const cv=document.getElementById('c'),cx=cv.getContext('2d');
+cv.width=window.innerWidth;cv.height=window.innerHeight;
+window.addEventListener('resize',()=>{cv.width=window.innerWidth;cv.height=window.innerHeight;});
+const pts=Array.from({length:60},()=>{return{x:Math.random()*cv.width,y:Math.random()*cv.height,vx:(Math.random()-.5)*0.4,vy:(Math.random()-.5)*0.4,size:Math.random()*1.5+0.3,color:`hsl(${260+Math.random()*60},80%,70%)`};});
+function draw(){cx.clearRect(0,0,cv.width,cv.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cv.width)p.vx*=-1;if(p.y<0||p.y>cv.height)p.vy*=-1;cx.beginPath();cx.arc(p.x,p.y,p.size,0,Math.PI*2);cx.fillStyle=p.color;cx.globalAlpha=0.5;cx.fill();});requestAnimationFrame(draw);}
+draw();
+</script>
+</body></html>
