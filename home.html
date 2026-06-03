@@ -1,106 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Nyxarion Launcher</title>
-
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NYXARION — Home</title>
+{shared_head}
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#05060a;
-    color:white;
-}
-
-/* TOP BAR */
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 20px;
-    background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(10px);
-}
-
-.logo{
-    font-size:20px;
-    color:#a855f7;
-    text-shadow:0 0 10px #a855f7;
-}
-
-/* MAIN GRID */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:30px;
-}
-
-/* BIG LAUNCH CARDS */
-.card{
-    height:200px;
-    border-radius:15px;
-    background:rgba(255,255,255,0.05);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    cursor:pointer;
-    transition:0.3s;
-    border:1px solid rgba(255,255,255,0.1);
-}
-
-.card:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px rgba(168,85,247,0.4);
-}
-
-.card h2{
-    color:#00f0ff;
-}
-
-/* BOTTOM PREVIEW */
-.preview{
-    padding:20px;
-    text-align:center;
-    opacity:0.8;
-}
+.hero{{position:relative;min-height:100vh;display:flex;align-items:center;padding:100px 8% 60px;overflow:hidden;}}
+.hero-bg{{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 70% 50%,rgba(123,47,255,0.12) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 20% 80%,rgba(30,58,255,0.1) 0%,transparent 60%);}}
+.hero-scan{{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);}}
+.hero-content{{position:relative;z-index:2;max-width:700px;}}
+.hero-eye{{font-size:11px;letter-spacing:6px;color:var(--purple2);text-transform:uppercase;margin-bottom:20px;}}
+.hero-title{{font-family:'Orbitron',monospace;font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.05;margin-bottom:24px;}}
+.hero-title span{{background:linear-gradient(135deg,var(--purple2),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}}
+.hero-desc{{font-size:16px;color:var(--muted);line-height:1.7;max-width:500px;margin-bottom:40px;}}
+.hero-btns{{display:flex;gap:16px;flex-wrap:wrap;}}
+.hero-orb{{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:clamp(260px,35vw,460px);height:clamp(260px,35vw,460px);border-radius:50%;background:radial-gradient(circle,rgba(123,47,255,0.15) 0%,rgba(30,58,255,0.08) 50%,transparent 70%);border:1px solid rgba(123,47,255,0.2);animation:spin 20s linear infinite;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:14px;letter-spacing:6px;color:rgba(168,85,247,0.4);}}
+.hero-orb::before{{content:'';position:absolute;inset:20px;border-radius:50%;border:1px solid rgba(96,165,250,0.15);animation:spin 15s linear infinite reverse;}}
+@keyframes spin{{to{{transform:translateY(-50%) rotate(360deg);}}}}
+.qgrid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}}
+.qcard{{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:32px 28px;text-decoration:none;color:var(--text);display:block;transition:all 0.3s;position:relative;overflow:hidden;}}
+.qcard::before{{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(123,47,255,0.08),rgba(30,58,255,0.05));opacity:0;transition:opacity 0.3s;}}
+.qcard:hover{{border-color:var(--purple);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.3),0 0 30px var(--glow);}}
+.qcard:hover::before{{opacity:1;}}
+.qi{{font-size:36px;margin-bottom:16px;}}
+.qt{{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;margin-bottom:8px;}}
+.qd{{font-size:13px;color:var(--muted);line-height:1.6;}}
+.qa{{position:absolute;bottom:20px;right:20px;color:var(--purple2);font-size:18px;transition:transform 0.3s;}}
+.qcard:hover .qa{{transform:translateX(4px);}}
+.nstrip{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}}
+.nc{{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;text-decoration:none;color:var(--text);display:block;transition:all 0.3s;}}
+.nc:hover{{border-color:var(--purple);transform:translateY(-3px);}}
+.nc-thumb{{height:160px;display:flex;align-items:center;justify-content:center;font-size:48px;}}
+.nc-body{{padding:20px;}}
+.nc-cat{{font-size:9px;letter-spacing:4px;color:var(--purple2);text-transform:uppercase;margin-bottom:8px;}}
+.nc-title{{font-family:'Exo 2',sans-serif;font-size:15px;font-weight:700;line-height:1.4;margin-bottom:8px;}}
+.nc-date{{font-size:11px;color:var(--muted);}}
+@media(max-width:768px){{.hero-orb{{display:none;}}}}
 </style>
-
 </head>
-
 <body>
-
-<div class="topbar">
-<div class="logo">NYXARION LAUNCHER</div>
-<div>
-<button onclick="location.href='games.html'">Games</button>
-<button onclick="location.href='news.html'">News</button>
-<button onclick="location.href='profile.html'">Profile</button>
-</div>
-</div>
-
-<div class="grid">
-
-<div class="card" onclick="location.href='games.html'">
-<h2>🎮 GAMES</h2>
-<p>Launch your gaming universe</p>
-</div>
-
-<div class="card" onclick="location.href='news.html'">
-<h2>📰 NEWS</h2>
-<p>Latest gaming updates & events</p>
-</div>
-
-<div class="card" onclick="location.href='profile.html'">
-<h2>👤 PROFILE</h2>
-<p>Your identity in Nyxarion world</p>
-</div>
-
-</div>
-
-<div class="preview">
-Welcome to Nyxarion — a unified gaming launcher experience inspired by modern game platforms.
-</div>
-
-</body>
-</html>
+<div id="cur"></div><div id="cur2"></div>
+<div class="stars"></div>
+{nav('index')}
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-scan"></div>
+  <div class="hero-content">
+    <div class="hero-eye">// Gaming Universe Hub</div>
+    <h1 class="hero-title">Your Gateway<br>to the <span>Gaming</span><br>Universe</h1>
+    <p class="hero-desc">Explore games across all platforms, stay updated with latest news, esports results, and connect with fellow gamers.</p>
+    <div class="hero-btns">
+      <a href="games.html" class="btn-primary">Explore Games</a>
+      <a href="news.html" class="btn-outline">Latest News</a>
+    </div>
+  </div>
+  <div class="hero-orb">NYXARION</div>
+</section>
+<section class="section">
+  <div class="section-tag">// Navigate</div>
+  <h2 class="section-title">Explore <span>Nyxarion</span></h2>
+  <div class="section-line"></div>
+  <div class="qgrid">
+    <a href="games.html" class="qcard"><div class="qi">🎮</div><div class="qt">Games</div><div class="qd">Browse our full catalog — PC, mobile, console. All genres, all platforms.</div><div class="qa">→</div></a>
+    <a href="news.html" class="qcard"><div class="qi">📡</div><div class="qt">News</div><div class="qd">Latest releases, patches, esports tournaments and gaming culture.</div><div class="qa">→</div></a>
+    <a href="profile.html" class="qcard"><div class="qi">👾</div><div class="qt">Profiles</div><div class="qd">Meet the squad — our gamer profiles, bios and favourite games.</div><div class="qa">→</div></a>
+  </div>
+</section>
+<section class="section" style="padding-top:0;">
+  <div class="section-tag">// Latest</div>
+  <h2 class="section-title">Hot <span>News</span></h2>
+  <div class="section-line"></div>
+  <div class="nstrip">
+    <a href="news.html" class="nc"><div class="nc-thumb" style="background:linear-gradient(135deg,rgba(239,68,68,0.3),rgba(123,47,255,0.2));">🎯</div><div class="nc-body"><div class="nc-cat">Esports</div><div class="nc-title">Valorant Mobile Season 2 Global Championship Announced</div><div class="nc-date">June 2026</div></div></a>
+    <a href="news.html" class="nc"><div class="nc-thumb" style="background:linear-gradient(135deg,rgba(251,191,36,0.3),rgba(30,58,255,0.2));">🌊</div><div class="nc-body"><div class="nc-cat">Update</div><div class="nc-title">Wuthering Waves Version 3.0 Brings Massive New Open World</div><div class="nc-date">June 2026</div></div></a>
+    <a href="news.html" class="nc"><div class="nc-thumb" style="background:linear-gradient(135deg,rgba(34,197,94,0.3),rgba(123,47,255,0.2));">⚡</div><div class="nc-body"><div class="nc-cat">Release</div><div class="nc-title">Hogwarts Legacy 2 Official Release Date Confirmed for 2026</div><div class="nc-date">May 2026</div></div></a>
+  </div>
+</section>
+{footer()}
+{shared_js}
+</body></html>
