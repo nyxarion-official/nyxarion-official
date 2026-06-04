@@ -52,18 +52,20 @@ footer{background:rgba(7,4,26,0.8);border-top:1px solid var(--border);padding:40
 .fb{padding:8px 20px;background:var(--card);border:1px solid var(--border);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all 0.2s;}
 .fb:hover,.fb.active{background:rgba(123,47,255,0.15);border-color:var(--purple);color:var(--purple2);}
 .games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;padding:0 8% 80px;}
-.gc{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all 0.3s;}
+.gc{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all 0.3s;display:flex;flex-direction:column;}
 .gc:hover{border-color:var(--purple);transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,0.4),0 0 40px var(--glow);}
 .gc-cover{height:200px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;}
 .gc-plat{position:absolute;top:12px;right:12px;display:flex;gap:6px;}
 .pt{padding:3px 8px;background:rgba(4,2,15,0.8);border:1px solid var(--border);border-radius:3px;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
-.gc-info{padding:20px;}
+.gc-info{padding:20px;display:flex;flex-direction:column;flex:1;}
 .gc-genre{font-size:9px;letter-spacing:4px;color:var(--purple2);text-transform:uppercase;margin-bottom:8px;}
 .gc-title{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;margin-bottom:6px;}
-.gc-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
-.gc-foot{display:flex;align-items:center;justify-content:space-between;}
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:16px;flex:1;}
+.gc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
 .gc-rating{display:flex;align-items:center;gap:6px;font-size:13px;}
 .sr{color:#fbbf24;font-size:12px;}
+.gc-link{padding:7px 16px;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:all 0.2s;white-space:nowrap;}
+.gc-link:hover{box-shadow:0 0 20px var(--glow);transform:translateY(-1px);}
 .hidden{display:none;}
 @media(max-width:768px){.games-grid{padding:0 5% 60px;}.filter-bar{padding:20px 5% 30px;}}
 </style>
@@ -72,27 +74,26 @@ footer{background:rgba(7,4,26,0.8);border-top:1px solid var(--border);padding:40
 <div id="cur"></div><div id="cur2"></div>
 <div class="stars"></div>
 <nav>
-  <a href="home.html" class="nav-logo">NYXARION</a>
-  <div class="nav-links"><a href="index.html" class="nav-btn ">HOME</a><a href="games.html" class="nav-btn active">GAMES</a><a href="news.html" class="nav-btn ">NEWS</a><a href="profile.html" class="nav-btn ">PROFILE</a></div>
-  <button class="nav-mobile" onclick="toggleMob()">☰</button>
+<a href="home.html" class="nav-logo">NYXARION</a>
+<div class="nav-links"><a href="index.html" class="nav-btn ">HOME</a><a href="games.html" class="nav-btn active">GAMES</a><a href="news.html" class="nav-btn ">NEWS</a><a href="profile.html" class="nav-btn ">PROFILE</a></div>
+<button class="nav-mobile" onclick="toggleMob()">☰</button>
 </nav>
 <div id="mob-menu"><a href="index.html">HOME</a><a href="games.html">GAMES</a><a href="news.html">NEWS</a><a href="profile.html">PROFILE</a></div>
 <div class="page-hero">
-  <div class="section-tag">// Game Library</div>
-  <h1>All <span>Games</span></h1>
+<div class="section-tag">// Game Library</div>
+<h1>All <span>Games</span></h1>
 </div>
 <div class="filter-bar">
-  <button class="fb active" onclick="filter('all',this)">All</button>
-  <button class="fb" onclick="filter('mobile',this)">Mobile</button>
-  <button class="fb" onclick="filter('pc',this)">PC</button>
-  <button class="fb" onclick="filter('console',this)">Console</button>
-  <button class="fb" onclick="filter('action',this)">Action</button>
-  <button class="fb" onclick="filter('rpg',this)">RPG</button>
-  <button class="fb" onclick="filter('openworld',this)">Open World</button>
+<button class="fb active" onclick="filter('all',this)">All</button>
+<button class="fb" onclick="filter('mobile',this)">Mobile</button>
+<button class="fb" onclick="filter('pc',this)">PC</button>
+<button class="fb" onclick="filter('console',this)">Console</button>
+<button class="fb" onclick="filter('action',this)">Action</button>
+<button class="fb" onclick="filter('rpg',this)">RPG</button>
+<button class="fb" onclick="filter('openworld',this)">Open World</button>
 </div>
 <div class="games-grid" id="gg"></div>
 <footer><div class="footer-logo">NYXARION</div><div class="footer-text">© 2026 Nyxarion · All Platforms · All Genres · All News</div></footer>
-
 <script>
 const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
 document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';cur2.style.left=e.clientX+'px';cur2.style.top=e.clientY+'px';});
@@ -102,36 +103,38 @@ function toggleMob(){const m=document.getElementById('mob-menu');m.style.display
 </script>
 <script>
 const games=[
-  {t:'GTA VI',g:'Action / Open World',p:['PC','Console'],tags:['action','openworld','pc','console'],e:'🚗',r:4.9,d:'The most anticipated open-world crime saga returns to Vice City with the biggest map ever.',c:'rgba(239,68,68,0.25),rgba(251,191,36,0.15)'},
-  {t:'PUBG Mobile',g:'Battle Royale',p:['Mobile'],tags:['action','mobile'],e:'🔫',r:4.7,d:'100-player battle royale on mobile — squad up and be the last team standing.',c:'rgba(234,179,8,0.25),rgba(123,47,255,0.15)'},
-  {t:'Valorant Mobile',g:'Tactical FPS',p:['Mobile'],tags:['action','mobile'],e:'🎯',r:4.8,d:"Riot's tactical 5v5 FPS comes to mobile with full agent abilities and ranked play.",c:'rgba(239,68,68,0.3),rgba(30,58,255,0.15)'},
-  {t:'Wuthering Waves',g:'Action RPG',p:['Mobile','PC'],tags:['rpg','action','mobile','pc'],e:'🌊',r:4.8,d:'Stunning open-world action RPG with fluid combat, deep lore and breathtaking environments.',c:'rgba(6,182,212,0.25),rgba(123,47,255,0.15)'},
-  {t:'Honor of Kings World',g:'MOBA / RPG',p:['Mobile','PC','Console'],tags:['action','rpg','mobile','pc','console'],e:'⚔️',r:4.6,d:'The legendary MOBA expands into a full open-world RPG across all platforms.',c:'rgba(251,191,36,0.25),rgba(239,68,68,0.15)'},
-  {t:'Red Dead Redemption 2',g:'Open World / Western',p:['PC','Console'],tags:['openworld','rpg','pc','console'],e:'🤠',r:5.0,d:'The greatest open-world game ever made. A masterpiece of storytelling and immersion.',c:'rgba(180,83,9,0.3),rgba(120,53,15,0.2)'},
-  {t:'Hogwarts Legacy',g:'Action RPG',p:['PC','Console'],tags:['rpg','openworld','pc','console'],e:'⚡',r:4.7,d:'Explore Hogwarts in the 1800s, master spells, and uncover a hidden magical secret.',c:'rgba(123,47,255,0.3),rgba(251,191,36,0.15)'},
-  {t:'Hogwarts Legacy 2',g:'Action RPG',p:['PC','Console'],tags:['rpg','openworld','pc','console'],e:'🦅',r:4.9,d:'The sequel expands the wizarding world with new regions, creatures, and deeper magic systems.',c:'rgba(168,85,247,0.3),rgba(96,165,250,0.15)'},
-  {t:'Minecraft',g:'Sandbox / Survival',p:['PC','Mobile','Console'],tags:['action','mobile','pc','console'],e:'⛏️',r:4.8,d:'The infinite sandbox where creativity has no limits. Build, survive, explore forever.',c:'rgba(34,197,94,0.25),rgba(120,53,15,0.15)'},
-  {t:'Call of Duty Mobile',g:'FPS / Battle Royale',p:['Mobile'],tags:['action','mobile'],e:'💥',r:4.6,d:'Console-quality COD experience on mobile with BR, multiplayer and ranked modes.',c:'rgba(239,68,68,0.2),rgba(107,114,128,0.2)'},
-  {t:'Fortnite',g:'Battle Royale',p:['PC','Mobile','Console'],tags:['action','mobile','pc','console'],e:'🏗️',r:4.5,d:'The iconic battle royale with constant collaborations, building mechanics and live events.',c:'rgba(96,165,250,0.25),rgba(251,191,36,0.15)'},
-  {t:'Cyberpunk 2077',g:'Open World RPG',p:['PC','Console'],tags:['rpg','openworld','pc','console'],e:'🌆',r:4.8,d:'Night City awaits — a sprawling cyberpunk RPG redeemed and now fully realized.',c:'rgba(234,179,8,0.2),rgba(6,182,212,0.15)'},
+{t:'GTA VI',g:'Action / Open World',p:['PC','Console'],tags:['action','openworld','pc','console'],e:'🚗',r:4.9,d:'The most anticipated open-world crime saga returns to Vice City with the biggest map ever.',c:'rgba(239,68,68,0.25),rgba(251,191,36,0.15)',url:'gta.html'},
+{t:'PUBG Mobile',g:'Battle Royale',p:['Mobile'],tags:['action','mobile'],e:'🔫',r:4.7,d:'100-player battle royale on mobile — squad up and be the last team standing.',c:'rgba(234,179,8,0.25),rgba(123,47,255,0.15)',url:'pubg.html'},
+{t:'Valorant Mobile',g:'Tactical FPS',p:['Mobile'],tags:['action','mobile'],e:'🎯',r:4.8,d:"Riot's tactical 5v5 FPS comes to mobile with full agent abilities and ranked play.",c:'rgba(239,68,68,0.3),rgba(30,58,255,0.15)',url:'valorant.html'},
+{t:'Wuthering Waves',g:'Action RPG',p:['Mobile','PC'],tags:['rpg','action','mobile','pc'],e:'🌊',r:4.8,d:'Stunning open-world action RPG with fluid combat, deep lore and breathtaking environments.',c:'rgba(6,182,212,0.25),rgba(123,47,255,0.15)',url:'wuthering.html'},
+{t:'Honor of Kings World',g:'MOBA / RPG',p:['Mobile','PC','Console'],tags:['action','rpg','mobile','pc','console'],e:'⚔️',r:4.6,d:'The legendary MOBA expands into a full open-world RPG across all platforms.',c:'rgba(251,191,36,0.25),rgba(239,68,68,0.15)',url:'honorofkings.html'},
+{t:'Red Dead Redemption 2',g:'Open World / Western',p:['PC','Console'],tags:['openworld','rpg','pc','console'],e:'🤠',r:5.0,d:'The greatest open-world game ever made. A masterpiece of storytelling and immersion.',c:'rgba(180,83,9,0.3),rgba(120,53,15,0.2)',url:'rdr2.html'},
+{t:'Hogwarts Legacy',g:'Action RPG',p:['PC','Console'],tags:['rpg','openworld','pc','console'],e:'⚡',r:4.7,d:'Explore Hogwarts in the 1800s, master spells, and uncover a hidden magical secret.',c:'rgba(123,47,255,0.3),rgba(251,191,36,0.15)',url:'hogwarts.html'},
+{t:'Hogwarts Legacy 2',g:'Action RPG',p:['PC','Console'],tags:['rpg','openworld','pc','console'],e:'🦅',r:4.9,d:'The sequel expands the wizarding world with new regions, creatures, and deeper magic systems.',c:'rgba(168,85,247,0.3),rgba(96,165,250,0.15)',url:'hogwarts2.html'},
+{t:'Minecraft',g:'Sandbox / Survival',p:['PC','Mobile','Console'],tags:['action','mobile','pc','console'],e:'⛏️',r:4.8,d:'The infinite sandbox where creativity has no limits. Build, survive, explore forever.',c:'rgba(34,197,94,0.25),rgba(120,53,15,0.15)',url:'minecraft.html'},
+{t:'Call of Duty Mobile',g:'FPS / Battle Royale',p:['Mobile'],tags:['action','mobile'],e:'💥',r:4.6,d:'Console-quality COD experience on mobile with BR, multiplayer and ranked modes.',c:'rgba(239,68,68,0.2),rgba(107,114,128,0.2)',url:'codmobile.html'},
+{t:'Fortnite',g:'Battle Royale',p:['PC','Mobile','Console'],tags:['action','mobile','pc','console'],e:'🏗️',r:4.5,d:'The iconic battle royale with constant collaborations, building mechanics and live events.',c:'rgba(96,165,250,0.25),rgba(251,191,36,0.15)',url:'fortnite.html'},
+{t:'Cyberpunk 2077',g:'Open World RPG',p:['PC','Console'],tags:['rpg','openworld','pc','console'],e:'🌆',r:4.8,d:'Night City awaits — a sprawling cyberpunk RPG redeemed and now fully realized.',c:'rgba(234,179,8,0.2),rgba(6,182,212,0.15)',url:'cyberpunk.html'},
 ];
+
 function render(tag){
-  const list=tag==='all'?games:games.filter(g=>g.tags.includes(tag));
-  document.getElementById('gg').innerHTML=list.map(g=>`
-    <div class="gc">
-      <div class="gc-cover" style="background:linear-gradient(135deg,${g.c});">
-        <span style="position:relative;z-index:2;">${g.e}</span>
-        <div class="gc-plat">${g.p.map(p=>`<span class="pt">${p}</span>`).join('')}</div>
-      </div>
-      <div class="gc-info">
-        <div class="gc-genre">${g.g}</div>
-        <div class="gc-title">${g.t}</div>
-        <div class="gc-desc">${g.d}</div>
-        <div class="gc-foot">
-          <div class="gc-rating"><span class="sr">${'★'.repeat(Math.floor(g.r))}</span><span style="font-size:12px;color:var(--muted)">${g.r}</span></div>
-        </div>
-      </div>
-    </div>`).join('');
+const list=tag==='all'?games:games.filter(g=>g.tags.includes(tag));
+document.getElementById('gg').innerHTML=list.map(g=>`
+<div class="gc">
+<div class="gc-cover" style="background:linear-gradient(135deg,${g.c});">
+<span style="position:relative;z-index:2;">${g.e}</span>
+<div class="gc-plat">${g.p.map(p=>`<span class="pt">${p}</span>`).join('')}</div>
+</div>
+<div class="gc-info">
+<div class="gc-genre">${g.g}</div>
+<div class="gc-title">${g.t}</div>
+<div class="gc-desc">${g.d}</div>
+<div class="gc-foot">
+<div class="gc-rating"><span class="sr">${'★'.repeat(Math.floor(g.r))}</span><span style="font-size:12px;color:var(--muted)">${g.r}</span></div>
+<a href="${g.url}" class="gc-link">View Details →</a>
+</div>
+</div>
+</div>`).join('');
 }
 render('all');
 function filter(tag,btn){document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render(tag);}
