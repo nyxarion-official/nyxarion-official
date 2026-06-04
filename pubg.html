@@ -2,158 +2,891 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PUBG Mobile - Nyxarion</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PUBG Mobile — NYXARION</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Exo+2:wght@200;400;700&display=swap" rel="stylesheet">
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    color: white;
-    scroll-behavior: smooth;
+:root {
+  --bg: #04020f;
+  --gold: #f59e0b;
+  --gold2: #fcd34d;
+  --orange: #ea580c;
+  --blue: #0ea5e9;
+  --purple: #7b2fff;
+  --text: #e8e0ff;
+  --muted: #7a6ea0;
+  --card: rgba(255,255,255,0.04);
+  --border: rgba(245,158,11,0.22);
+  --glow: rgba(245,158,11,0.5);
+  --pakistan-green: #01411C;
+  --pakistan-white: #f0f0f0;
 }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Rajdhani',sans-serif; overflow-x:hidden; cursor:none; }
+
+/* CURSOR */
+#cur { position:fixed; width:12px; height:12px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:screen; transition:width 0.1s,height 0.1s; }
+#cur2 { position:fixed; width:34px; height:34px; border:1px solid rgba(245,158,11,0.5); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:left 0.1s,top 0.1s; }
+body:hover #cur { width:14px; height:14px; }
 
 /* NAV */
-nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    padding: 12px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-}
+nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; background:rgba(4,2,15,0.92); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); }
+.nav-logo { font-family:'Orbitron',monospace; font-size:22px; font-weight:900; background:linear-gradient(135deg,var(--gold),var(--orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:4px; text-decoration:none; }
+.nav-links { display:flex; gap:8px; }
+.nav-btn { color:var(--muted); font-family:'Rajdhani',sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:8px 16px; border-radius:4px; text-decoration:none; transition:all 0.2s; position:relative; }
+.nav-btn:hover, .nav-btn.active { color:var(--gold); }
+.nav-btn.active::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:60%; height:2px; background:var(--gold); border-radius:2px; }
+.nav-mobile { display:none; background:none; border:none; color:var(--text); font-size:24px; cursor:pointer; }
+#mob-menu { display:none; position:fixed; top:64px; left:0; right:0; background:rgba(4,2,15,0.97); z-index:999; padding:16px 24px; border-bottom:1px solid var(--border); }
+#mob-menu a { display:block; padding:14px 0; color:var(--muted); text-decoration:none; font-family:'Rajdhani',sans-serif; font-size:14px; letter-spacing:2px; text-transform:uppercase; border-bottom:1px solid var(--border); }
+#mob-menu a:hover { color:var(--gold); }
 
-nav button {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    background: #1f2937;
-    color: white;
-}
+/* HERO */
+#hero { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background:#04020f; }
+.hero-bg-gradient { position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(245,158,11,0.08) 0%, rgba(234,88,12,0.04) 40%, transparent 70%); }
+.hero-particles { position:absolute; inset:0; pointer-events:none; }
 
-/* SLIDES */
-.slide {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-}
+/* 3D SCENE */
+.scene-wrapper { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; perspective:1000px; }
+.scene-3d { width:500px; height:500px; position:relative; transform-style:preserve-3d; animation:sceneSpin 20s linear infinite; }
+.orbit-ring { position:absolute; inset:0; border-radius:50%; border:1px solid rgba(245,158,11,0.12); transform-style:preserve-3d; }
+.orbit-ring:nth-child(1) { transform:rotateX(75deg); }
+.orbit-ring:nth-child(2) { transform:rotateX(75deg) rotateZ(60deg); }
+.orbit-ring:nth-child(3) { transform:rotateX(75deg) rotateZ(120deg); }
+.orbit-dot { position:absolute; width:8px; height:8px; background:var(--gold); border-radius:50%; top:0; left:50%; transform:translate(-50%,-50%); box-shadow:0 0 12px var(--gold); }
+@keyframes sceneSpin { from{transform:rotateY(0deg);} to{transform:rotateY(360deg);} }
 
-/* DARK OVERLAY */
-.overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-}
+/* HERO CONTENT */
+.hero-content { position:relative; z-index:10; text-align:center; padding:80px 24px 40px; max-width:900px; }
+.hero-eyebrow { font-size:10px; letter-spacing:6px; color:var(--gold); text-transform:uppercase; margin-bottom:20px; opacity:0; animation:fadeUp 0.8s 0.3s forwards; }
+.hero-title { font-family:'Orbitron',monospace; font-size:clamp(48px,9vw,100px); font-weight:900; line-height:0.9; margin-bottom:24px; opacity:0; animation:fadeUp 0.8s 0.5s forwards; }
+.hero-title .line1 { display:block; color:var(--text); }
+.hero-title .line2 { display:block; background:linear-gradient(135deg,var(--gold),var(--orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero-sub { font-size:16px; color:var(--muted); line-height:1.7; max-width:560px; margin:0 auto 36px; opacity:0; animation:fadeUp 0.8s 0.7s forwards; }
+.hero-stats { display:flex; gap:0; justify-content:center; margin-bottom:40px; opacity:0; animation:fadeUp 0.8s 0.9s forwards; flex-wrap:wrap; }
+.hstat { padding:20px 32px; border:1px solid var(--border); text-align:center; position:relative; }
+.hstat::after { content:''; position:absolute; top:50%; right:-1px; height:40%; width:1px; background:var(--border); transform:translateY(-50%); }
+.hstat:last-child::after { display:none; }
+.hstat-val { font-family:'Orbitron',monospace; font-size:clamp(22px,3vw,32px); font-weight:900; color:var(--gold); }
+.hstat-label { font-size:9px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; margin-top:4px; }
+.hero-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; opacity:0; animation:fadeUp 0.8s 1.1s forwards; }
+.btn-gold { padding:14px 36px; background:linear-gradient(135deg,var(--gold),var(--orange)); color:#04020f; font-family:'Orbitron',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; border-radius:3px; font-weight:700; transition:all 0.3s; display:inline-block; }
+.btn-gold:hover { box-shadow:0 0 40px var(--glow); transform:translateY(-2px); }
+.btn-outline-gold { padding:14px 36px; background:transparent; color:var(--gold); border:1px solid var(--gold); font-family:'Orbitron',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; border-radius:3px; transition:all 0.3s; display:inline-block; }
+.btn-outline-gold:hover { background:rgba(245,158,11,0.1); transform:translateY(-2px); }
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
 
-/* TEXT */
-.content {
-    position: relative;
-    max-width: 800px;
-    padding: 20px;
-}
+/* SCROLL NAV */
+.section-nav { position:sticky; top:64px; z-index:100; background:rgba(4,2,15,0.95); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); display:flex; overflow-x:auto; scrollbar-width:none; }
+.section-nav::-webkit-scrollbar { display:none; }
+.snav-btn { flex-shrink:0; padding:16px 24px; color:var(--muted); font-family:'Rajdhani',sans-serif; font-size:12px; letter-spacing:2px; text-transform:uppercase; text-decoration:none; transition:all 0.2s; white-space:nowrap; border-bottom:2px solid transparent; }
+.snav-btn:hover, .snav-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
 
-h1 {
-    color: #00f0ff;
-    text-shadow: 0 0 10px #00f0ff;
-}
+/* SECTIONS */
+.section { padding:100px 8%; position:relative; }
+.section::before { content:''; position:absolute; inset:0; pointer-events:none; }
+.section-alt { background:rgba(255,255,255,0.015); }
+.section-tag { font-size:10px; letter-spacing:5px; color:var(--gold); text-transform:uppercase; margin-bottom:12px; }
+.section-title { font-family:'Orbitron',monospace; font-size:clamp(28px,4vw,48px); font-weight:900; margin-bottom:16px; line-height:1.1; }
+.section-title span { background:linear-gradient(135deg,var(--gold),var(--orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.section-line { width:60px; height:2px; background:linear-gradient(90deg,var(--gold),transparent); margin-bottom:48px; }
+.section-lead { font-size:15px; color:var(--muted); line-height:1.8; max-width:680px; margin-bottom:48px; }
 
-p {
-    line-height: 1.6;
-    opacity: 0.9;
+/* 3D CARD GRID */
+.card-3d-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; }
+.card-3d { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:32px; transition:all 0.4s; transform:perspective(600px) rotateX(0deg) rotateY(0deg); transform-style:preserve-3d; position:relative; overflow:hidden; cursor:default; }
+.card-3d::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(245,158,11,0.06) 0%,transparent 60%); opacity:0; transition:opacity 0.3s; border-radius:12px; }
+.card-3d:hover { border-color:var(--gold); box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(245,158,11,0.15); transform:perspective(600px) rotateX(-3deg) rotateY(3deg) translateY(-8px); }
+.card-3d:hover::before { opacity:1; }
+.card-icon { font-size:42px; margin-bottom:16px; display:block; transform:translateZ(20px); }
+.card-title { font-family:'Orbitron',monospace; font-size:15px; font-weight:700; color:var(--gold); margin-bottom:10px; }
+.card-text { font-size:13px; color:var(--muted); line-height:1.7; }
+.card-badge { display:inline-block; margin-top:14px; padding:4px 12px; background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.3); border-radius:20px; font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
+
+/* PMGO SEASONS */
+.pmgo-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+.pmgo-card { border-radius:16px; overflow:hidden; position:relative; border:1px solid var(--border); transition:all 0.4s; }
+.pmgo-card:hover { transform:translateY(-8px); box-shadow:0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(245,158,11,0.1); border-color:var(--gold); }
+.pmgo-card-header { padding:36px 32px; position:relative; overflow:hidden; }
+.pmgo-s1 .pmgo-card-header { background:linear-gradient(135deg,rgba(14,165,233,0.2),rgba(6,182,212,0.08)); }
+.pmgo-s2 .pmgo-card-header { background:linear-gradient(135deg,rgba(1,65,28,0.4),rgba(245,158,11,0.1)); }
+.pmgo-card-header::before { content:''; position:absolute; inset:0; }
+.pmgo-season-label { font-size:9px; letter-spacing:5px; text-transform:uppercase; margin-bottom:8px; opacity:0.7; }
+.pmgo-season-title { font-family:'Orbitron',monospace; font-size:28px; font-weight:900; line-height:1; margin-bottom:4px; }
+.pmgo-s1 .pmgo-season-title { color:var(--blue); }
+.pmgo-s2 .pmgo-season-title { color:#4ade80; }
+.pmgo-season-sub { font-size:12px; color:var(--muted); letter-spacing:1px; margin-bottom:20px; }
+.pmgo-emoji { font-size:56px; position:absolute; right:24px; top:24px; opacity:0.25; }
+.pmgo-prize { font-family:'Orbitron',monospace; font-size:22px; font-weight:900; color:var(--gold); }
+.pmgo-prize-label { font-size:9px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; margin-top:2px; }
+.pmgo-card-body { padding:28px 32px; background:rgba(4,2,15,0.6); }
+.pmgo-detail-row { display:flex; align-items:flex-start; gap:14px; margin-bottom:18px; }
+.pmgo-detail-row:last-child { margin-bottom:0; }
+.pmgo-detail-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+.pmgo-detail-label { font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:3px; }
+.pmgo-detail-val { font-size:13px; color:var(--text); line-height:1.5; }
+.pmgo-host-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:20px; font-size:11px; font-weight:600; letter-spacing:1px; margin-top:16px; }
+.pmgo-s1 .pmgo-host-badge { background:rgba(14,165,233,0.15); border:1px solid rgba(14,165,233,0.3); color:var(--blue); }
+.pmgo-s2 .pmgo-host-badge { background:rgba(1,65,28,0.5); border:1px solid rgba(74,222,128,0.3); color:#4ade80; }
+.pmgo-stage-list { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.pmgo-stage { padding:5px 14px; background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.2); border-radius:20px; font-size:10px; letter-spacing:1px; color:var(--gold); }
+
+/* PAKISTAN PRIDE SECTION */
+#pakistan { background:linear-gradient(180deg,var(--bg) 0%,rgba(1,65,28,0.06) 50%,var(--bg) 100%); }
+.pakistan-flag-accent { display:inline-flex; align-items:center; gap:10px; margin-bottom:16px; }
+.flag-strip { width:4px; height:32px; background:var(--pakistan-green); border-radius:2px; }
+.flag-strip-white { width:4px; height:32px; background:rgba(255,255,255,0.6); border-radius:2px; }
+
+/* 4THRIVES SECTION */
+.team-hero { background:linear-gradient(135deg,rgba(1,65,28,0.25),rgba(245,158,11,0.06)); border:1px solid rgba(1,65,28,0.4); border-radius:16px; padding:40px; margin-bottom:40px; position:relative; overflow:hidden; }
+.team-hero::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; background:radial-gradient(circle,rgba(1,65,28,0.3),transparent 70%); }
+.team-hero-top { display:flex; align-items:center; gap:24px; margin-bottom:28px; flex-wrap:wrap; }
+.team-logo-placeholder { width:80px; height:80px; background:linear-gradient(135deg,var(--pakistan-green),#166534); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:36px; flex-shrink:0; border:2px solid rgba(74,222,128,0.3); box-shadow:0 0 30px rgba(1,65,28,0.5); position:relative; animation:logoGlow 3s ease-in-out infinite alternate; }
+@keyframes logoGlow { from{box-shadow:0 0 20px rgba(1,65,28,0.4);} to{box-shadow:0 0 50px rgba(74,222,128,0.4);} }
+.team-info h2 { font-family:'Orbitron',monospace; font-size:28px; font-weight:900; color:#4ade80; margin-bottom:4px; }
+.team-info p { font-size:13px; color:var(--muted); letter-spacing:1px; }
+.team-origin { display:flex; align-items:center; gap:8px; margin-top:6px; font-size:12px; color:#86efac; }
+.team-tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.team-tag { padding:4px 12px; border-radius:20px; font-size:10px; letter-spacing:2px; text-transform:uppercase; }
+.tag-green { background:rgba(1,65,28,0.4); border:1px solid rgba(74,222,128,0.3); color:#4ade80; }
+.tag-gold { background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.3); color:var(--gold); }
+.tag-white { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:var(--text); }
+.team-earnings-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-top:24px; }
+.team-earn-stat { background:rgba(0,0,0,0.3); border:1px solid rgba(1,65,28,0.3); border-radius:10px; padding:16px; text-align:center; }
+.team-earn-val { font-family:'Orbitron',monospace; font-size:20px; font-weight:900; color:#4ade80; }
+.team-earn-label { font-size:9px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-top:4px; }
+
+/* ROSTER CARDS */
+.roster-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:20px; }
+.player-card { background:var(--card); border:1px solid rgba(1,65,28,0.3); border-radius:12px; padding:28px 20px; text-align:center; position:relative; overflow:hidden; transition:all 0.35s; transform:perspective(600px) rotateX(0) rotateY(0); transform-style:preserve-3d; }
+.player-card::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(1,65,28,0.15) 0%,transparent 60%); opacity:0; transition:opacity 0.3s; border-radius:12px; }
+.player-card:hover { border-color:#4ade80; box-shadow:0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(1,65,28,0.3); transform:perspective(600px) rotateX(-4deg) rotateY(4deg) translateY(-6px); }
+.player-card:hover::before { opacity:1; }
+.player-avatar { width:72px; height:72px; background:linear-gradient(135deg,rgba(1,65,28,0.5),rgba(245,158,11,0.2)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; margin:0 auto 14px; border:2px solid rgba(74,222,128,0.2); transform:translateZ(20px); position:relative; }
+.player-avatar::after { content:''; position:absolute; inset:-4px; border-radius:50%; border:1px solid rgba(74,222,128,0.1); animation:pulseRing 3s ease-in-out infinite; }
+@keyframes pulseRing { 0%,100%{opacity:0.3;transform:scale(1);} 50%{opacity:0.6;transform:scale(1.05);} }
+.player-role-badge { position:absolute; top:12px; right:12px; padding:3px 8px; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.25); border-radius:3px; font-size:8px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
+.player-tag { font-family:'Orbitron',monospace; font-size:17px; font-weight:900; color:#4ade80; margin-bottom:4px; }
+.player-name { font-size:11px; color:var(--muted); margin-bottom:8px; }
+.player-stat { font-size:10px; color:rgba(245,158,11,0.7); letter-spacing:1px; }
+.player-captain { position:absolute; top:12px; left:12px; font-size:14px; }
+.manager-card { background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(0,0,0,0)); border:1px solid rgba(245,158,11,0.2); border-radius:12px; padding:24px; display:flex; align-items:center; gap:20px; margin-top:20px; }
+.manager-avatar { width:56px; height:56px; background:linear-gradient(135deg,rgba(245,158,11,0.3),rgba(234,88,12,0.2)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0; }
+.manager-info h4 { font-family:'Orbitron',monospace; font-size:15px; color:var(--gold); }
+.manager-info p { font-size:12px; color:var(--muted); margin-top:2px; }
+.manager-badge { display:inline-block; margin-top:6px; padding:3px 10px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); border-radius:3px; font-size:9px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
+
+/* TIMELINE */
+.timeline { position:relative; padding-left:32px; }
+.timeline::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:2px; background:linear-gradient(180deg,var(--gold),var(--orange),rgba(74,222,128,0.5)); border-radius:2px; }
+.tl-item { position:relative; margin-bottom:36px; }
+.tl-item:last-child { margin-bottom:0; }
+.tl-dot { position:absolute; left:-39px; top:4px; width:14px; height:14px; border-radius:50%; border:2px solid var(--gold); background:var(--bg); }
+.tl-dot.green { border-color:#4ade80; box-shadow:0 0 10px rgba(74,222,128,0.4); }
+.tl-dot.gold { box-shadow:0 0 10px rgba(245,158,11,0.5); background:var(--gold); }
+.tl-date { font-size:10px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:6px; }
+.tl-date.green { color:#4ade80; }
+.tl-title { font-family:'Orbitron',monospace; font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px; }
+.tl-desc { font-size:13px; color:var(--muted); line-height:1.6; }
+.tl-highlight { display:inline-block; margin-top:8px; padding:4px 12px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.25); border-radius:3px; font-size:11px; color:var(--gold); }
+.tl-highlight.green { background:rgba(74,222,128,0.08); border-color:rgba(74,222,128,0.25); color:#4ade80; }
+
+/* MAPS */
+.maps-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:20px; }
+.map-card { border-radius:12px; overflow:hidden; border:1px solid var(--border); transition:all 0.35s; position:relative; }
+.map-card:hover { border-color:var(--gold); transform:translateY(-6px) scale(1.01); box-shadow:0 24px 60px rgba(0,0,0,0.5), 0 0 40px rgba(245,158,11,0.12); }
+.map-visual { height:160px; display:flex; align-items:center; justify-content:center; font-size:72px; position:relative; overflow:hidden; }
+.map-visual::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 40%,rgba(4,2,15,0.8)); }
+.map-info { padding:18px 20px; background:rgba(4,2,15,0.7); }
+.map-name { font-family:'Orbitron',monospace; font-size:15px; font-weight:700; color:var(--gold); margin-bottom:4px; }
+.map-type { font-size:10px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
+.map-desc { font-size:12px; color:var(--muted); line-height:1.5; }
+
+/* FOOTER */
+footer { background:rgba(7,4,26,0.9); border-top:1px solid var(--border); padding:48px 8%; text-align:center; }
+.footer-logo { font-family:'Orbitron',monospace; font-size:22px; font-weight:900; background:linear-gradient(135deg,var(--gold),var(--orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:4px; margin-bottom:12px; }
+.footer-text { font-size:12px; color:var(--muted); letter-spacing:2px; }
+.footer-links { display:flex; gap:20px; justify-content:center; margin:16px 0; flex-wrap:wrap; }
+.footer-link { color:var(--muted); text-decoration:none; font-size:12px; letter-spacing:1px; transition:color 0.2s; }
+.footer-link:hover { color:var(--gold); }
+
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--gold); border-radius:2px; }
+
+/* FLOATING PARTICLES */
+.particle { position:absolute; border-radius:50%; pointer-events:none; animation:floatUp linear infinite; opacity:0; }
+@keyframes floatUp { 0%{transform:translateY(0) rotate(0deg);opacity:0;} 10%{opacity:0.5;} 90%{opacity:0.1;} 100%{transform:translateY(-100vh) rotate(360deg);opacity:0;} }
+
+/* GLITCH */
+.glitch { position:relative; display:inline-block; }
+.glitch::before,.glitch::after { content:attr(data-text); position:absolute; top:0; left:0; width:100%; height:100%; }
+.glitch::before { color:rgba(234,88,12,0.7); animation:glitch1 3s infinite; clip-path:polygon(0 0,100% 0,100% 45%,0 45%); }
+.glitch::after { color:rgba(14,165,233,0.7); animation:glitch2 3s infinite; clip-path:polygon(0 55%,100% 55%,100% 100%,0 100%); }
+@keyframes glitch1 { 0%,90%,100%{transform:translate(0);} 92%{transform:translate(-2px,1px);} 94%{transform:translate(2px,-1px);} 96%{transform:translate(-1px,2px);} }
+@keyframes glitch2 { 0%,90%,100%{transform:translate(0);} 92%{transform:translate(2px,-1px);} 94%{transform:translate(-2px,1px);} 96%{transform:translate(1px,-2px);} }
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .pmgo-grid{grid-template-columns:1fr;}
+  .team-hero-top{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;}.nav-links{display:none;}.nav-mobile{display:block;}
+  .section{padding:70px 5%;}
+  .hstat{padding:16px 20px;}
+}
+@media(max-width:480px){
+  .hero-stats{flex-direction:column;align-items:center;}
+  .hstat::after{display:none;}
+  .roster-grid{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
-
 <body>
+<div id="cur"></div>
+<div id="cur2"></div>
 
-<nav>
-    <button onclick="location.href='home.html'">Home</button>
-    <button onclick="location.href='games.html'">Games</button>
-    <button onclick="location.href='news.html'">News</button>
-    <button onclick="location.href='profile.html'">Profile</button>
+<!-- HERO PARTICLES -->
+<div id="hero">
+  <div class="hero-bg-gradient"></div>
+  <canvas id="particleCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+
+  <!-- 3D ORBITING SCENE -->
+  <div class="scene-wrapper">
+    <div class="scene-3d">
+      <div class="orbit-ring"><div class="orbit-dot"></div></div>
+      <div class="orbit-ring"><div class="orbit-dot"></div></div>
+      <div class="orbit-ring"><div class="orbit-dot"></div></div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">// Battle Royale · Mobile Esports · Global</div>
+    <h1 class="hero-title">
+      <span class="line1">PUBG</span>
+      <span class="line2 glitch" data-text="MOBILE">MOBILE</span>
+    </h1>
+    <p class="hero-sub">100 players. One island. One winner. The game that defined mobile esports is now bigger than ever — with the PMGO bringing it to the biggest stages on Earth.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">1B+</div><div class="hstat-label">Downloads</div></div>
+      <div class="hstat"><div class="hstat-val">$500K</div><div class="hstat-label">PMGO Prize</div></div>
+      <div class="hstat"><div class="hstat-val">100</div><div class="hstat-label">Players/Match</div></div>
+      <div class="hstat"><div class="hstat-val">32</div><div class="hstat-label">Global Teams</div></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#pmgo" class="btn-gold">PMGO 2026 →</a>
+      <a href="#team4thrives" class="btn-outline-gold">4Thrives Pakistan ↓</a>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION NAV -->
+<nav class="section-nav" id="snav">
+  <a href="#overview" class="snav-btn">Overview</a>
+  <a href="#pmgo" class="snav-btn">PMGO Seasons</a>
+  <a href="#team4thrives" class="snav-btn">4Thrives</a>
+  <a href="#roster" class="snav-btn">Roster</a>
+  <a href="#timeline" class="snav-btn">Timeline</a>
+  <a href="#maps" class="snav-btn">Maps</a>
 </nav>
 
-<!-- SLIDE 1 -->
-<div class="slide" style="background-image:url('https://upload.wikimedia.org/wikipedia/en/4/44/PUBG_Mobile_logo.jpg');">
-<div class="overlay"></div>
-<div class="content">
-<h1>PUBG MOBILE</h1>
-<p>Enter the battlefield where only one survives.</p>
-</div>
-</div>
-
-<!-- SLIDE 2 -->
-<div class="slide" style="background-image:url('https://images.unsplash.com/photo-1542751371-adc38448a05e');">
-<div class="overlay"></div>
-<div class="content">
-<h1>Battle Royale System</h1>
-<p>100 players drop into a massive map and fight for survival until the last player remains.</p>
-</div>
-</div>
-
-<!-- SLIDE 3 -->
-<div class="slide" style="background-image:url('https://images.unsplash.com/photo-1605902711622-cfb43c4437d1');">
-<div class="overlay"></div>
-<div class="content">
-<h1>Combat Mechanics</h1>
-<p>Realistic recoil, bullet physics, and tactical shooting define every encounter.</p>
-</div>
+<!-- TOP NAV -->
+<nav>
+  <a href="home.html" class="nav-logo">NYXARION</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-btn">HOME</a>
+    <a href="games.html" class="nav-btn active">GAMES</a>
+    <a href="news.html" class="nav-btn">NEWS</a>
+    <a href="profile.html" class="nav-btn">PROFILE</a>
+  </div>
+  <button class="nav-mobile" onclick="toggleMob()">☰</button>
+</nav>
+<div id="mob-menu">
+  <a href="index.html">HOME</a>
+  <a href="games.html">GAMES</a>
+  <a href="news.html">NEWS</a>
+  <a href="profile.html">PROFILE</a>
 </div>
 
-<!-- SLIDE 4 -->
-<div class="slide" style="background-image:url('https://images.unsplash.com/photo-1533236897111-3e94666b2edf');">
-<div class="overlay"></div>
-<div class="content">
-<h1>Open World Maps</h1>
-<p>Erangel, Miramar, Sanhok, and Livik offer different combat experiences.</p>
-</div>
-</div>
+<!-- OVERVIEW -->
+<section class="section" id="overview">
+  <div class="section-tag">// Game Overview</div>
+  <h2 class="section-title">What is <span>PUBG Mobile</span>?</h2>
+  <div class="section-line"></div>
+  <p class="section-lead">Developed by KRAFTON and published by Level Infinite, PUBG Mobile drops 100 players onto a shrinking island. Every match is a fight for survival — loot, strategize, and outlast everyone. The last squad standing wins. Simple concept. Infinite depth.</p>
+  <div class="card-3d-grid">
+    <div class="card-3d">
+      <span class="card-icon">🪂</span>
+      <div class="card-title">Battle Royale Core</div>
+      <div class="card-text">100 players parachute onto a massive map. Resources are scarce. The safe zone shrinks. Every decision can be your last.</div>
+      <span class="card-badge">Core Mode</span>
+    </div>
+    <div class="card-3d">
+      <span class="card-icon">🔫</span>
+      <div class="card-title">Realistic Gunplay</div>
+      <div class="card-text">Bullet physics, realistic recoil patterns, and attachment systems mean gun mastery separates the casual from the elite.</div>
+      <span class="card-badge">Skill-Based</span>
+    </div>
+    <div class="card-3d">
+      <span class="card-icon">👥</span>
+      <div class="card-title">Squad Coordination</div>
+      <div class="card-text">Solo, Duo, or Squad of four. Teamwork, callouts, and coordination define championship-level play.</div>
+      <span class="card-badge">Team Play</span>
+    </div>
+    <div class="card-3d">
+      <span class="card-icon">🏆</span>
+      <div class="card-title">Global Esports</div>
+      <div class="card-text">PMGO, PMWC, and PMGC form a global circuit with millions in prize money drawing the world's best teams.</div>
+      <span class="card-badge">Pro Scene</span>
+    </div>
+    <div class="card-3d">
+      <span class="card-icon">📱</span>
+      <div class="card-title">Mobile-First</div>
+      <div class="card-text">Optimized for touchscreen but requiring precise mechanics. Gyro, claw, emulator — every setup has a meta.</div>
+      <span class="card-badge">Mobile Platform</span>
+    </div>
+    <div class="card-3d">
+      <span class="card-icon">🌍</span>
+      <div class="card-title">Worldwide Reach</div>
+      <div class="card-text">Over 1 billion downloads. Active competitive scenes in South Asia, Southeast Asia, Europe, Americas, and MENA.</div>
+      <span class="card-badge">Global</span>
+    </div>
+  </div>
+</section>
 
-<!-- SLIDE 5 -->
-<div class="slide" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee');">
-<div class="overlay"></div>
-<div class="content">
-<h1>Strategic Survival</h1>
-<p>Positioning, timing, and decision-making determine victory.</p>
-</div>
-</div>
+<!-- PMGO SEASONS -->
+<section class="section section-alt" id="pmgo">
+  <div class="section-tag">// Tournament Circuit</div>
+  <h2 class="section-title">PUBG Mobile <span>Global Open</span></h2>
+  <div class="section-line"></div>
+  <p class="section-lead">The PMGO is the premier international tournament series of the PUBG Mobile competitive calendar. In 2026, it runs for two massive seasons — each with a $500,000 prize pool — bringing global giants to new host countries.</p>
 
-<!-- SLIDE 6 -->
-<div class="slide" style="background-image:url('https://images.unsplash.com/photo-1614294148960-9aa740632a87');">
-<div class="overlay"></div>
-<div class="content">
-<h1>Weapons System</h1>
-<p>Assault rifles, sniper rifles, SMGs, and grenades define combat styles.</p>
-</div>
-</div>
+  <div class="pmgo-grid">
+    <!-- S1 -->
+    <div class="pmgo-card pmgo-s1">
+      <div class="pmgo-card-header">
+        <div class="pmgo-emoji">🌏</div>
+        <div class="pmgo-season-label">// First Season 2026</div>
+        <div class="pmgo-season-title">PMGO S1</div>
+        <div class="pmgo-season-sub">2026 · Indonesia</div>
+        <div class="pmgo-prize">$500,000</div>
+        <div class="pmgo-prize-label">Total Prize Pool</div>
+        <div class="pmgo-host-badge">🇮🇩 Jakarta, Indonesia · June 2–7, 2026</div>
+      </div>
+      <div class="pmgo-card-body">
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">🏟️</div>
+          <div>
+            <div class="pmgo-detail-label">Venue</div>
+            <div class="pmgo-detail-val">Tennis Indoor Stadium Senayan, Jakarta</div>
+          </div>
+        </div>
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">👥</div>
+          <div>
+            <div class="pmgo-detail-label">Teams</div>
+            <div class="pmgo-detail-val">32 teams from all global regions — the biggest PMGO ever</div>
+          </div>
+        </div>
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">📊</div>
+          <div>
+            <div class="pmgo-detail-label">Format</div>
+            <div class="pmgo-detail-val">Group Stage (Jun 2–3) → Survival (Jun 4) → Grand Finals (Jun 6–7)</div>
+          </div>
+        </div>
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">⚡</div>
+          <div>
+            <div class="pmgo-detail-label">Qualifier Rule</div>
+            <div class="pmgo-detail-val">Top 6 from each group go direct to Grand Finals. 7th–14th enter Survival. 15th–16th eliminated.</div>
+          </div>
+        </div>
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">🇵🇰</div>
+          <div>
+            <div class="pmgo-detail-label">Pakistan Representation</div>
+            <div class="pmgo-detail-val"><strong style="color:#4ade80;">4Thrives Esports</strong> — qualified as South Asia Champions (1st in SA Finals, Lahore)</div>
+          </div>
+        </div>
+        <div class="pmgo-stage-list">
+          <span class="pmgo-stage">Group A</span>
+          <span class="pmgo-stage">Group B</span>
+          <span class="pmgo-stage">Survival</span>
+          <span class="pmgo-stage">Grand Finals</span>
+        </div>
+      </div>
+    </div>
 
-<!-- SLIDE 7 -->
-<div class="slide" style="background-image:url('https://images.unsplash.com/photo-1608889175638-9a7a3a6a1a8f');">
-<div class="overlay"></div>
-<div class="content">
-<h1>Squad Gameplay</h1>
-<p>Team coordination, voice chat, and revive system create tactical depth.</p>
-</div>
-</div>
+    <!-- S2 -->
+    <div class="pmgo-card pmgo-s2">
+      <div class="pmgo-card-header">
+        <div class="pmgo-emoji">🇵🇰</div>
+        <div class="pmgo-season-label">// Second Season 2026</div>
+        <div class="pmgo-season-title">PMGO S2</div>
+        <div class="pmgo-season-sub">2026 · Pakistan 🏡</div>
+        <div class="pmgo-prize">$500,000</div>
+        <div class="pmgo-prize-label">Total Prize Pool</div>
+        <div class="pmgo-host-badge">🇵🇰 Pakistan · Later 2026</div>
+      </div>
+      <div class="pmgo-card-body">
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">🏆</div>
+          <div>
+            <div class="pmgo-detail-label">Historic Milestone</div>
+            <div class="pmgo-detail-val">Pakistan becomes the first South Asian country to host an S-Tier PUBG Mobile international event</div>
+          </div>
+        </div>
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">🌐</div>
+          <div>
+            <div class="pmgo-detail-label">Featured Regions</div>
+            <div class="pmgo-detail-val">India, China, Japan, South Korea + global qualifier regions</div>
+          </div>
+        </div>
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">💰</div>
+          <div>
+            <div class="pmgo-detail-label">PMGC Points</div>
+            <div class="pmgo-detail-val">Both PMGO seasons feed PMGC Qualification Points — replaced PMSL as regional circuit event</div>
+          </div>
+        </div>
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">📣</div>
+          <div>
+            <div class="pmgo-detail-label">Announcement</div>
+            <div class="pmgo-detail-val">Announced at 2025 PMGC Grand Finals by James Yang — Pakistan chosen for its growing esports fanbase</div>
+          </div>
+        </div>
+        <div class="pmgo-detail-row">
+          <div class="pmgo-detail-icon">🇵🇰</div>
+          <div>
+            <div class="pmgo-detail-label">Home Crowd Moment</div>
+            <div class="pmgo-detail-val">Pakistani teams including <strong style="color:#4ade80;">4Thrives</strong> will compete in front of a home crowd for the first time on a global stage</div>
+          </div>
+        </div>
+        <div class="pmgo-stage-list">
+          <span class="pmgo-stage">Pakistan Host</span>
+          <span class="pmgo-stage">$500K Prize</span>
+          <span class="pmgo-stage">S-Tier</span>
+          <span class="pmgo-stage">PMGC Points</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<!-- SLIDE 8 -->
-<div class="slide" style="background:#0b0f1a;">
-<div class="overlay"></div>
-<div class="content">
-<h1>More Content Continues...</h1>
-<p>You can extend this system to 20–30 slides easily by repeating this format.</p>
-</div>
-</div>
+  <!-- PMGO History -->
+  <div style="margin-top:48px;">
+    <div class="section-tag">// Tournament History</div>
+    <h3 style="font-family:'Orbitron',monospace;font-size:22px;font-weight:700;margin-bottom:32px;">PMGO Past <span style="background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Champions</span></h3>
+    <div class="card-3d-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
+      <div class="card-3d">
+        <span class="card-icon">🥇</span>
+        <div class="card-title">PMGO 2024</div>
+        <div class="card-text">Brazil · 16 Teams · $356,000 prize pool</div>
+        <div style="margin-top:12px;font-family:'Orbitron',monospace;font-size:13px;color:var(--gold);">🏆 REJECT</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">Japan · First-ever PMGO Champions</div>
+      </div>
+      <div class="card-3d">
+        <span class="card-icon">🥇</span>
+        <div class="card-title">PMGO 2025</div>
+        <div class="card-text">Uzbekistan · 24 Teams · $500,000 prize pool</div>
+        <div style="margin-top:12px;font-family:'Orbitron',monospace;font-size:13px;color:var(--gold);">🏆 Regnum Carya</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">Turkey · 2nd: Nigma Galaxy · 3rd: The721</div>
+      </div>
+      <div class="card-3d">
+        <span class="card-icon">🔥</span>
+        <div class="card-title">PMGO 2026 S1</div>
+        <div class="card-text">Indonesia · 32 Teams · $500,000 prize pool</div>
+        <div style="margin-top:12px;font-family:'Orbitron',monospace;font-size:13px;color:#4ade80;">🇵🇰 4Thrives Qualified!</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">June 2–7, 2026 · In Progress</div>
+      </div>
+      <div class="card-3d">
+        <span class="card-icon">🇵🇰</span>
+        <div class="card-title">PMGO 2026 S2</div>
+        <div class="card-text">Pakistan · $500,000 prize pool</div>
+        <div style="margin-top:12px;font-family:'Orbitron',monospace;font-size:13px;color:#4ade80;">Home Soil Event</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">First S-Tier event in South Asia history</div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- 4THRIVES -->
+<section class="section" id="team4thrives">
+  <div class="pakistan-flag-accent">
+    <div class="flag-strip"></div>
+    <div class="flag-strip-white"></div>
+    <div class="section-tag" style="margin-bottom:0;">// Pakistan Esports · Spotlight</div>
+  </div>
+  <h2 class="section-title">Team <span>4Thrives</span> Esports</h2>
+  <div class="section-line"></div>
+
+  <div class="team-hero">
+    <div class="team-hero-top">
+      <div class="team-logo-placeholder">🎮</div>
+      <div class="team-info">
+        <h2>4THRIVES ESPORTS</h2>
+        <p>Pakistan's Pride on the Global Stage</p>
+        <div class="team-origin">🇵🇰 Pakistan · South Asia Region · Est. December 1, 2024</div>
+        <div class="team-tags">
+          <span class="team-tag tag-green">South Asia</span>
+          <span class="team-tag tag-gold">S-Tier Competitor</span>
+          <span class="team-tag tag-white">PMGO 2026 S1</span>
+          <span class="team-tag tag-green">No Sponsor · Pure Talent</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;max-width:720px;margin-bottom:24px;">
+      Born on December 1, 2024 — not in a corporate gaming house, but through WhatsApp calls, shared dreams, and relentless grind. Manager Usman "Shaheen" Tariq handpicked players for synergy over fame. In less than nine months they became the first Pakistani team ever to reach the Grand Finals of an S-Tier PUBG Mobile event, finishing 7th at the PMWC 2025 with 1.3M+ peak viewers watching.
+    </p>
+    <div class="team-earnings-row">
+      <div class="team-earn-stat"><div class="team-earn-val">$193K+</div><div class="team-earn-label">Total Winnings</div></div>
+      <div class="team-earn-stat"><div class="team-earn-val">7th</div><div class="team-earn-label">PMWC 2025 Finish</div></div>
+      <div class="team-earn-stat"><div class="team-earn-val">1.3M+</div><div class="team-earn-label">Peak Viewers</div></div>
+      <div class="team-earn-stat"><div class="team-earn-val">1st PK</div><div class="team-earn-label">S-Tier Grand Finals</div></div>
+      <div class="team-earn-stat"><div class="team-earn-val">$157K</div><div class="team-earn-label">PMWC Earnings</div></div>
+      <div class="team-earn-stat"><div class="team-earn-val">🇵🇰</div><div class="team-earn-label">Pakistan's Best</div></div>
+    </div>
+  </div>
+
+  <p class="section-lead">4Thrives rewrote what was thought possible for Pakistani esports. They built an international team from scratch with zero sponsorship, qualified for the Esports World Cup, reached the PMWC Grand Finals, and are now representing South Asia at PMGO 2026 Season 1 in Jakarta.</p>
+</section>
+
+<!-- ROSTER -->
+<section class="section section-alt" id="roster">
+  <div class="section-tag">// Active Lineup · 2026</div>
+  <h2 class="section-title">4Thrives <span>Roster</span></h2>
+  <div class="section-line"></div>
+  <p class="section-lead">Current active roster competing at PMGO 2026 Season 1 in Jakarta, Indonesia. CAIRO departed in December 2025; HUZAIFA joined as the new IGL on December 22, 2025.</p>
+
+  <div class="roster-grid">
+    <div class="player-card">
+      <span class="player-captain">👑</span>
+      <span class="player-role-badge">Owner</span>
+      <div class="player-avatar">⚡</div>
+      <div class="player-tag">FALAK</div>
+      <div class="player-name">Falak Sher</div>
+      <div class="player-stat">Fragger · Age 18</div>
+      <div style="margin-top:10px;font-size:11px;color:rgba(74,222,128,0.7);">6th Top Fragger — PMWC 2025</div>
+    </div>
+    <div class="player-card">
+      <span class="player-role-badge">Captain</span>
+      <div class="player-avatar">🎯</div>
+      <div class="player-tag">IQ</div>
+      <div class="player-name">Shayan "IQQ" Asad</div>
+      <div class="player-stat">IGL · Age 21</div>
+      <div style="margin-top:10px;font-size:11px;color:rgba(74,222,128,0.7);">In-Game Leader · Captain</div>
+    </div>
+    <div class="player-card">
+      <span class="player-role-badge">Fragger</span>
+      <div class="player-avatar">🔥</div>
+      <div class="player-tag">Nocki</div>
+      <div class="player-name">Sameer "Nock" Khan</div>
+      <div class="player-stat">Fragger · Age 19</div>
+      <div style="margin-top:10px;font-size:11px;color:rgba(74,222,128,0.7);">Original roster member</div>
+    </div>
+    <div class="player-card">
+      <span class="player-role-badge">Support</span>
+      <div class="player-avatar">💪</div>
+      <div class="player-tag">T24OP</div>
+      <div class="player-name">Hasnain "T24OP" Rehman</div>
+      <div class="player-stat">Support · Age 19</div>
+      <div style="margin-top:10px;font-size:11px;color:rgba(74,222,128,0.7);">Original roster member</div>
+    </div>
+    <div class="player-card" style="border-color:rgba(245,158,11,0.3);">
+      <span class="player-role-badge" style="color:#60a5fa;border-color:rgba(96,165,250,0.3);background:rgba(96,165,250,0.1);">New IGL</span>
+      <div class="player-avatar" style="background:linear-gradient(135deg,rgba(96,165,250,0.3),rgba(245,158,11,0.2));">🧠</div>
+      <div class="player-tag" style="color:var(--blue);">HUZAIFA</div>
+      <div class="player-name">Muhammad Huzaifa</div>
+      <div class="player-stat">IGL · Age 20 · Joined Dec 2025</div>
+      <div style="margin-top:10px;font-size:11px;color:rgba(96,165,250,0.7);">Former AS i8 Esports IGL</div>
+    </div>
+  </div>
+
+  <div class="manager-card">
+    <div class="manager-avatar">🛡️</div>
+    <div class="manager-info">
+      <h4>SHAHEEN</h4>
+      <p>Usman "Shaheen" Tariq — Manager & Analyst</p>
+      <span class="manager-badge">Team Manager</span>
+      <span class="manager-badge" style="margin-left:8px;">Analyst</span>
+    </div>
+  </div>
+
+  <div style="margin-top:32px;padding:24px;background:rgba(234,88,12,0.06);border:1px solid rgba(234,88,12,0.15);border-radius:12px;">
+    <div style="font-size:10px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">// Former Members</div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.7;">
+      <strong style="color:var(--text);">CAIRO</strong> (Niash Hassan, Age 23) — Left December 16, 2025 to join <strong>Guts & Glory</strong>. Was the original entry fragger, part of the historic PMWC 2025 7th place run. The squad's original chemistry — FALAK, IQ, Nocki, T24OP, CAIRO + Shaheen — made history together, and that legacy lives on.
+    </p>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" id="timeline">
+  <div class="section-tag">// Journey So Far</div>
+  <h2 class="section-title">4Thrives <span>Timeline</span></h2>
+  <div class="section-line"></div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot gold"></div>
+      <div class="tl-date">December 1, 2024</div>
+      <div class="tl-title">4Thrives is Born</div>
+      <div class="tl-desc">Manager Shaheen forms the team via WhatsApp. Original lineup: FALAK, IQ, Nocki, T24OP, CAIRO. No sponsor. Just hunger.</div>
+      <span class="tl-highlight">🇵🇰 Pakistan's Next Chapter Begins</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Early 2025</div>
+      <div class="tl-title">PMSL CSA Spring 2025 — 3rd Place</div>
+      <div class="tl-desc">Their first major breakthrough. Finished 3rd at PMSL Central & South Asia Spring, earning $18,750 and a direct qualification slot for the Esports World Cup 2025.</div>
+      <span class="tl-highlight">$18,750 Earned · EWC Slot Secured</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot green"></div>
+      <div class="tl-date">July–August 2025</div>
+      <div class="tl-title">Esports World Cup 2025 — Riyadh</div>
+      <div class="tl-desc">First Pakistani team to qualify for EWC. Competed at the most prestigious esports event in history with a $70M+ total prize pool.</div>
+      <span class="tl-highlight green">🏅 Historic First for Pakistan Esports</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot gold"></div>
+      <div class="tl-date">August 1–3, 2025</div>
+      <div class="tl-title">PMWC Grand Finals — 7th Place</div>
+      <div class="tl-desc">Survival Stage performance was dominant: 2nd overall, 111 kills, 65 eliminations, 2 Chicken Dinners. Grand Finals finish: 7th with 109 points. $157,000 total earned. FALAK ranked 6th fragger and 3rd highest damage. 1.3M+ peak viewers.</div>
+      <span class="tl-highlight gold">🥇 First PK Team at S-Tier Grand Finals · $157K</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">September 6, 2025</div>
+      <div class="tl-title">Roster Acquired by Inner Circle Esports</div>
+      <div class="tl-desc">All five players and Shaheen move to Inner Circle Esports under a new organisation deal. 4Thrives the brand continues.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">December 2025</div>
+      <div class="tl-title">Rebuild — New Roster Forms</div>
+      <div class="tl-desc">Inner Circle Esports releases the roster. 4Thrives reacquires IQ, Nocki, FALAK, T24OP and CAIRO. Shaheen returns. CAIRO then departs to Guts & Glory. HUZAIFA (former AS i8 Esports IGL) joins December 22.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot green"></div>
+      <div class="tl-date">May 14–17, 2026</div>
+      <div class="tl-title">PMGO S1 — South Asia Finals, Lahore 🏆</div>
+      <div class="tl-desc">4Thrives were directly invited as defending South Asian titans. Finished 1st at the SA Finals in Lahore, Pakistan. Won $9,000 and 60 PMGC Points. Qualified as South Asia's top seed for the Main Event.</div>
+      <span class="tl-highlight green">🥇 SA Champions · $9,000 · Jakarta Bound</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot gold"></div>
+      <div class="tl-date">June 2–7, 2026</div>
+      <div class="tl-title">PMGO 2026 Season 1 — Jakarta 🔥</div>
+      <div class="tl-desc">Currently competing at the Tennis Indoor Stadium Senayan, Jakarta, Indonesia. 32 of the world's best teams. $500,000 on the line. Pakistan's eyes are watching.</div>
+      <span class="tl-highlight gold">🔴 LIVE NOW · Group A · Jakarta</span>
+    </div>
+  </div>
+</section>
+
+<!-- MAPS -->
+<section class="section section-alt" id="maps">
+  <div class="section-tag">// Battlegrounds</div>
+  <h2 class="section-title">Iconic <span>Maps</span></h2>
+  <div class="section-line"></div>
+  <div class="maps-grid">
+    <div class="map-card">
+      <div class="map-visual" style="background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(6,182,212,0.15));">🌿</div>
+      <div class="map-info">
+        <div class="map-name">Erangel</div>
+        <div class="map-type">Classic · 8×8km</div>
+        <div class="map-desc">The original. Rolling Russian countryside with farms, military bases, and school. Every PUBG story starts here.</div>
+      </div>
+    </div>
+    <div class="map-card">
+      <div class="map-visual" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(234,88,12,0.15));">🏜️</div>
+      <div class="map-info">
+        <div class="map-name">Miramar</div>
+        <div class="map-type">Desert · 8×8km</div>
+        <div class="map-desc">Mexico-inspired desert warfare. Long sightlines, rocky terrain, and fierce long-range duels across the wasteland.</div>
+      </div>
+    </div>
+    <div class="map-card">
+      <div class="map-visual" style="background:linear-gradient(135deg,rgba(21,128,61,0.3),rgba(16,185,129,0.15));">🌴</div>
+      <div class="map-info">
+        <div class="map-name">Sanhok</div>
+        <div class="map-type">Tropical · 4×4km</div>
+        <div class="map-desc">Compact, fast, and chaotic. Dense jungle warfare with high-frequency engagements and constant action.</div>
+      </div>
+    </div>
+    <div class="map-card">
+      <div class="map-visual" style="background:linear-gradient(135deg,rgba(96,165,250,0.15),rgba(191,219,254,0.1));">❄️</div>
+      <div class="map-info">
+        <div class="map-name">Vikendi</div>
+        <div class="map-type">Snow · 6×6km</div>
+        <div class="map-desc">A snowy Adriatic island where footprints betray your position. Unique stealth dynamics change every fight.</div>
+      </div>
+    </div>
+    <div class="map-card">
+      <div class="map-visual" style="background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(16,185,129,0.1));">🌿</div>
+      <div class="map-info">
+        <div class="map-name">Livik</div>
+        <div class="map-type">Mobile-Exclusive · 2×2km</div>
+        <div class="map-desc">Designed exclusively for mobile. Small, intense, and fast — perfect for ranked grind. Scandinavian landscapes.</div>
+      </div>
+    </div>
+    <div class="map-card">
+      <div class="map-visual" style="background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(168,85,247,0.1));">🌁</div>
+      <div class="map-info">
+        <div class="map-name">Karakin</div>
+        <div class="map-type">Urban · 2×2km</div>
+        <div class="map-desc">North African city warfare with destructible walls. Blast through buildings and create your own lines of sight.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">NYXARION</div>
+  <div class="footer-links">
+    <a href="games.html" class="footer-link">← Back to Games</a>
+    <a href="#hero" class="footer-link">↑ Top</a>
+    <a href="news.html" class="footer-link">Latest News</a>
+  </div>
+  <div class="footer-text">© 2026 Nyxarion · All Platforms · All Genres · All News</div>
+  <div style="margin-top:12px;font-size:11px;color:rgba(122,110,160,0.5);">4Thrives data sourced from Liquipedia, Sportskeeda, The Current PK & 4thrives.com</div>
+</footer>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cur'), cur2 = document.getElementById('cur2');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+  cur2.style.left = e.clientX + 'px'; cur2.style.top = e.clientY + 'px';
+});
+
+// MOBILE NAV
+function toggleMob() {
+  const m = document.getElementById('mob-menu');
+  m.style.display = m.style.display === 'block' ? 'none' : 'block';
+}
+
+// PARTICLE CANVAS
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+resize(); window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = H + 20;
+    this.size = Math.random() * 2.5 + 0.5;
+    this.speedY = Math.random() * 0.8 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.4;
+    this.life = 0;
+    this.maxLife = Math.random() * 200 + 100;
+    this.hue = Math.random() > 0.6 ? 38 : (Math.random() > 0.5 ? 24 : 200);
+  }
+  update() {
+    this.x += this.speedX; this.y -= this.speedY; this.life++;
+    if (this.life > this.maxLife || this.y < -20) this.reset();
+  }
+  draw() {
+    const alpha = Math.sin((this.life / this.maxLife) * Math.PI) * 0.6;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.hue}, 90%, 65%, ${alpha})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 80; i++) { const p = new Particle(); p.y = Math.random() * H; p.life = Math.random() * p.maxLife; particles.push(p); }
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// 3D CARD TILT
+document.querySelectorAll('.card-3d, .player-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const cx = r.width / 2, cy = r.height / 2;
+    const rotX = ((y - cy) / cy) * -6;
+    const rotY = ((x - cx) / cx) * 6;
+    card.style.transform = `perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(600px) rotateX(0) rotateY(0) translateY(0)';
+  });
+});
+
+// SECTION NAV ACTIVE
+const snavBtns = document.querySelectorAll('.snav-btn');
+const sections = ['overview','pmgo','team4thrives','roster','timeline','maps'];
+function updateSnav() {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  snavBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateSnav);
+
+// COUNTER ANIMATION
+function animateCount(el, target, suffix = '') {
+  let start = 0; const duration = 1600;
+  const step = timestamp => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    el.textContent = Math.floor(progress * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const statVals = entry.target.querySelectorAll('.team-earn-val');
+      statVals.forEach(v => {
+        const text = v.textContent;
+        if (text.includes('$193K')) { animateCount(v, 193, 'K+'); v.style.color = '#4ade80'; }
+        else if (text.includes('$157K')) animateCount(v, 157, 'K');
+        else if (text.includes('1.3M')) { v.textContent = '1.3M+'; }
+      });
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.4 });
+
+const teamHero = document.querySelector('.team-hero');
+if (teamHero) observer.observe(teamHero);
+
+// SCROLL REVEAL
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.card-3d, .player-card, .map-card, .pmgo-card, .tl-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  revealObserver.observe(el);
+});
+</script>
 </body>
 </html>
